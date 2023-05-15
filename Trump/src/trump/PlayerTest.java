@@ -17,7 +17,7 @@ class PlayerTest {
 		deck = new Deck();
 		player = new Player();
 	}
-
+	//テスト
 	@Test
 	@DisplayName("ワンペアがあるかの判定メソッド")
 	void test1() {
