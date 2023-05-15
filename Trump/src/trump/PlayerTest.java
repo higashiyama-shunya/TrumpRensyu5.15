@@ -49,10 +49,10 @@ class PlayerTest {
 	@DisplayName("ワンペアがあるかの判定メソッド、Falseの場合")
 	void test1_2() {
 		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(13, "ハート");
-		Card card3 = new Card(13, "クラブ");
+		Card card2 = new Card(12, "ハート");
+		Card card3 = new Card(10, "クラブ");
 		Card card4 = new Card(11, "スペード");
-		Card card5 = new Card(13, "ハート");
+		Card card5 = new Card(7, "ハート");
 
 		list.add(card);
 		list.add(card2);
@@ -64,6 +64,25 @@ class PlayerTest {
 		
 		assertFalse(player.isOnePair());
 
+	}
+	@Test
+	@DisplayName("ワンペア判定 ※他の役になっている場合")
+	void test1_3() {
+		Card card = new Card(13, "ダイヤ");
+		Card card2 = new Card(13, "ハート");
+		Card card3 = new Card(13, "クラブ");
+		Card card4 = new Card(11, "スペード");
+		Card card5 = new Card(11,"スペード");
+
+		list.add(card);
+		list.add(card2);
+		list.add(card3);
+		list.add(card4);
+		list.add(card5);
+		
+		player.setList(list);
+		
+		assertFalse(player.isOnePair());
 	}
 
 	@Test
@@ -93,6 +112,26 @@ class PlayerTest {
 		Card card2 = new Card(13, "ハート");
 		Card card3 = new Card(13, "クラブ");
 		Card card4 = new Card(11, "スペード");
+		Card card5 = new Card(12, "ハート");
+
+		list.add(card);
+		list.add(card2);
+		list.add(card3);
+		list.add(card4);
+		list.add(card5);
+		
+		player.setList(list);
+		
+		assertFalse(player.isTwoPair());
+	}
+	
+	@Test
+	@DisplayName("ツーペア判定のメソッド ※他の役になっている場合")
+	void test2_3() {
+		Card card = new Card(13, "ダイヤ");
+		Card card2 = new Card(13, "ハート");
+		Card card3 = new Card(13, "クラブ");
+		Card card4 = new Card(13, "スペード");
 		Card card5 = new Card(12, "ハート");
 
 		list.add(card);
