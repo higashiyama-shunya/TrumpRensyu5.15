@@ -6,7 +6,8 @@ import java.util.List;
 
 public class Player {
 	//フィールド
-	List<Card> list = new ArrayList();
+	//privateに変更してgetter/setter追加
+	private	List<Card> list = new ArrayList();
 	//コンストラクタ
 
 	//メソッド
@@ -22,6 +23,14 @@ public class Player {
 		}
 
 		return false;
+	}
+
+	public List<Card> getList() {
+		return list;
+	}
+
+	public void setList(List<Card> list) {
+		this.list = list;
 	}
 
 	public boolean isTwoPair() {

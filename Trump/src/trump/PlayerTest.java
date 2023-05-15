@@ -2,20 +2,26 @@ package trump;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class PlayerTest {
+	//フィールドをprivateにしたので直接引っ張ていたところをgetterやsetterに変更
 
 	Player player;
 	Card card;
 	Deck deck;
+	List<Card> list;
 
 	@BeforeEach
 	public void setUp() {
 		deck = new Deck();
 		player = new Player();
+		list=new ArrayList();
 	}
 	//テスト
 	@Test
@@ -27,12 +33,14 @@ class PlayerTest {
 		Card card4 = new Card(5, "スペード");
 		Card card5 = new Card(11, "ハート");
 
-		player.list.add(card);
-		player.list.add(card2);
-		player.list.add(card3);
-		player.list.add(card4);
-		player.list.add(card5);
-
+		list.add(card);
+		list.add(card2);
+		list.add(card3);
+		list.add(card4);
+		list.add(card5);
+		
+		player.setList(list);
+		
 		assertTrue(player.isOnePair());
 
 	}
@@ -46,12 +54,14 @@ class PlayerTest {
 		Card card4 = new Card(11, "スペード");
 		Card card5 = new Card(13, "ハート");
 
-		player.list.add(card);
-		player.list.add(card2);
-		player.list.add(card3);
-		player.list.add(card4);
-		player.list.add(card5);
-
+		list.add(card);
+		list.add(card2);
+		list.add(card3);
+		list.add(card4);
+		list.add(card5);
+		
+		player.setList(list);
+		
 		assertFalse(player.isOnePair());
 
 	}
@@ -65,11 +75,13 @@ class PlayerTest {
 		Card card4 = new Card(11, "スペード");
 		Card card5 = new Card(12, "ハート");
 
-		player.list.add(card);
-		player.list.add(card2);
-		player.list.add(card3);
-		player.list.add(card4);
-		player.list.add(card5);
+		list.add(card);
+		list.add(card2);
+		list.add(card3);
+		list.add(card4);
+		list.add(card5);
+		
+		player.setList(list);
 
 		assertTrue(player.isTwoPair());
 	}
@@ -83,12 +95,14 @@ class PlayerTest {
 		Card card4 = new Card(11, "スペード");
 		Card card5 = new Card(12, "ハート");
 
-		player.list.add(card);
-		player.list.add(card2);
-		player.list.add(card3);
-		player.list.add(card4);
-		player.list.add(card5);
-
+		list.add(card);
+		list.add(card2);
+		list.add(card3);
+		list.add(card4);
+		list.add(card5);
+		
+		player.setList(list);
+		
 		assertFalse(player.isTwoPair());
 	}
 
@@ -101,19 +115,22 @@ class PlayerTest {
 		Card card4 = new Card(11, "スペード");
 		Card card5 = new Card(12, "ハート");
 
-		player.list.add(card);
-		player.list.add(card2);
-		player.list.add(card3);
-		player.list.add(card4);
-		player.list.add(card5);
-		for (Card c : player.list) {
+		list.add(card);
+		list.add(card2);
+		list.add(card3);
+		list.add(card4);
+		list.add(card5);
+		
+		player.setList(list);
+		
+		for (Card c : player.getList()) {
 			System.out.println(c.getMark() + "の" + c.getNewNumber());
 		}
 
 		System.out.println("");
 		Card card6 = new Card(10, "クラブ");
 		player.changeCard(5, card6);
-		for (Card c : player.list) {
+		for (Card c : player.getList()) {
 			System.out.println(c.getMark() + "の" + c.getNewNumber());
 		}
 	}

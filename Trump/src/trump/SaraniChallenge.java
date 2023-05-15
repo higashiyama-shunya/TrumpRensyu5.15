@@ -1,25 +1,30 @@
 package trump;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class SaraniChallenge {
 
 	public static void main(String[] args) {
+		//フィールドをprivateにしたので直接引っ張ていたところをgetterやsetterに変更
 		Deck deck = new Deck();
 		Player player = new Player();
+		List<Card> list=new ArrayList();
 		deck.shuffle();
 
 		System.out.println("カードを5枚引きます。");
 
 		for (int i = 0; i < 5; i++) {
 			Card card = deck.draw();
-			player.list.add(card);
+			list.add(card);
 		}
+		player.setList(list);
 
 		System.out.println("あなたが引いたカードは");
-		for (int i = 0; i < player.list.size(); i++) {
+		for (int i = 0; i < player.getList().size(); i++) {
 			Card ca;
-			ca = player.list.get(i);
+			ca = player.getList().get(i);
 			System.out.println((i + 1) + "番:" + ca.getMark() + "の" + ca.getNewNumber());
 		}
 		System.out.println("以上の5枚です。");
@@ -33,7 +38,7 @@ public class SaraniChallenge {
 				int num = sc.nextInt();
 				Card card = deck.draw();
 				if (card != null) {
-					Card card2 = player.list.get(num - 1);
+					Card card2 = player.getList().get(num-1);
 					player.changeCard(num, card);
 					deck.put(card2);
 					deck.shuffle();
@@ -41,9 +46,9 @@ public class SaraniChallenge {
 					System.out.println("交換したカードは" + card.getMark() + "の" + card.getNewNumber() + "です。");
 
 					System.out.println("────現在の手札────");
-					for (int i = 0; i < player.list.size(); i++) {
+					for (int i = 0; i < player.getList().size(); i++) {
 						Card c;
-						c = player.list.get(i);
+						c = player.getList().get(i);
 						System.out.println((i + 1) + "番:" + c.getMark() + "の" + c.getNewNumber());
 					}
 					System.out.println("─────────────");
@@ -57,7 +62,7 @@ public class SaraniChallenge {
 			}
 		}
 		System.out.println("あなたが持っているカードは");
-		for (Card c : player.list) {
+		for (Card c : player.getList()) {
 			System.out.println(c.getMark() + "の" + c.getNewNumber());
 		}
 		System.out.println("です。");
