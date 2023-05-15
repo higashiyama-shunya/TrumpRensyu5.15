@@ -35,30 +35,34 @@ public class SaraniChallenge {
 			String yesno = sc.nextLine();
 			if (yesno.equals("y")) {
 				System.out.println("交換したいカードの番号を入力してください");
-				int num = sc.nextInt();
-				Card card = deck.draw();
-				if (card != null) {
-					Card card2 = player.getList().get(num-1);
-					player.changeCard(num, card);
-					deck.put(card2);
-					deck.shuffle();
+				try {
+					int num = sc.nextInt();
+					Card card = deck.draw();
+					if (card != null) {
+						Card card2 = player.getList().get(num-1);
+						player.changeCard(num, card);
+						deck.put(card2);
+						deck.shuffle();
 
-					System.out.println("交換したカードは" + card.getMark() + "の" + card.getNewNumber() + "です。");
+						System.out.println("交換したカードは" + card.getMark() + "の" + card.getNewNumber() + "です。");
 
-					System.out.println("────現在の手札────");
-					for (int i = 0; i < player.getList().size(); i++) {
-						Card c;
-						c = player.getList().get(i);
-						System.out.println((i + 1) + "番:" + c.getMark() + "の" + c.getNewNumber());
-					}
-					System.out.println("─────────────");
-				} else {
-
+						System.out.println("────現在の手札────");
+						for (int i = 0; i < player.getList().size(); i++) {
+							Card c;
+							c = player.getList().get(i);
+							System.out.println((i + 1) + "番:" + c.getMark() + "の" + c.getNewNumber());
+						}
+						System.out.println("─────────────");
+						}
+				}catch(Exception e) {
+					System.out.println("無効な値です。もう1度やり直してください。");
+					continue;
 				}
+
 			} else if (yesno.equals("n")) {
 				break;
 			} else {
-				System.out.println("有効な値ではありません。もう1度打ちなおしてください");
+				System.out.println("無効な値です。もう1度打ちなおしてください");
 			}
 		}
 		System.out.println("あなたが持っているカードは");
