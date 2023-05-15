@@ -15,14 +15,15 @@ class PlayerTest {
 	Player player;
 	Card card;
 	Deck deck;
-	List<Card> list;
+	List<Card> cardList;
 
 	@BeforeEach
 	public void setUp() {
 		deck = new Deck();
 		player = new Player();
-		list=new ArrayList();
+		cardList = new ArrayList();
 	}
+
 	//テスト
 	@Test
 	@DisplayName("ワンペアがあるかの判定メソッド")
@@ -33,18 +34,18 @@ class PlayerTest {
 		Card card4 = new Card(5, "スペード");
 		Card card5 = new Card(11, "ハート");
 
-		list.add(card);
-		list.add(card2);
-		list.add(card3);
-		list.add(card4);
-		list.add(card5);
-		
-		player.setList(list);
-		
+		cardList.add(card);
+		cardList.add(card2);
+		cardList.add(card3);
+		cardList.add(card4);
+		cardList.add(card5);
+
+		player.setList(cardList);
+
 		assertTrue(player.isOnePair());
 
 	}
-	
+
 	@Test
 	@DisplayName("ワンペアがあるかの判定メソッド、Falseの場合")
 	void test1_2() {
@@ -54,17 +55,18 @@ class PlayerTest {
 		Card card4 = new Card(11, "スペード");
 		Card card5 = new Card(7, "ハート");
 
-		list.add(card);
-		list.add(card2);
-		list.add(card3);
-		list.add(card4);
-		list.add(card5);
-		
-		player.setList(list);
-		
+		cardList.add(card);
+		cardList.add(card2);
+		cardList.add(card3);
+		cardList.add(card4);
+		cardList.add(card5);
+
+		player.setList(cardList);
+
 		assertFalse(player.isOnePair());
 
 	}
+
 	@Test
 	@DisplayName("ワンペア判定 ※他の役になっている場合")
 	void test1_3() {
@@ -72,16 +74,16 @@ class PlayerTest {
 		Card card2 = new Card(13, "ハート");
 		Card card3 = new Card(13, "クラブ");
 		Card card4 = new Card(11, "スペード");
-		Card card5 = new Card(11,"スペード");
+		Card card5 = new Card(11, "スペード");
 
-		list.add(card);
-		list.add(card2);
-		list.add(card3);
-		list.add(card4);
-		list.add(card5);
-		
-		player.setList(list);
-		
+		cardList.add(card);
+		cardList.add(card2);
+		cardList.add(card3);
+		cardList.add(card4);
+		cardList.add(card5);
+
+		player.setList(cardList);
+
 		assertFalse(player.isOnePair());
 	}
 
@@ -94,54 +96,60 @@ class PlayerTest {
 		Card card4 = new Card(11, "スペード");
 		Card card5 = new Card(12, "ハート");
 
-		list.add(card);
-		list.add(card2);
-		list.add(card3);
-		list.add(card4);
-		list.add(card5);
-		
-		player.setList(list);
+		cardList.add(card);
+		cardList.add(card2);
+		cardList.add(card3);
+		cardList.add(card4);
+		cardList.add(card5);
+
+		player.setList(cardList);
+		System.out.println("");
+		for (Card c : player.getList()) {
+			System.out.println(c.getMark() + c.getNewNumber());
+		}
+		System.out.println("");
+		System.out.println(player.isTwoPair());
 
 		assertTrue(player.isTwoPair());
 	}
-	
+
 	@Test
 	@DisplayName("ツーペアがあるかどうかの判定falseの場合")
 	void test2_2() {
 		Card card = new Card(13, "ダイヤ");
 		Card card2 = new Card(13, "ハート");
 		Card card3 = new Card(13, "クラブ");
-		Card card4 = new Card(11, "スペード");
+		Card card4 = new Card(10, "スペード");
 		Card card5 = new Card(12, "ハート");
 
-		list.add(card);
-		list.add(card2);
-		list.add(card3);
-		list.add(card4);
-		list.add(card5);
-		
-		player.setList(list);
-		
+		cardList.add(card);
+		cardList.add(card2);
+		cardList.add(card3);
+		cardList.add(card4);
+		cardList.add(card5);
+
+		player.setList(cardList);
+
 		assertFalse(player.isTwoPair());
 	}
-	
+
 	@Test
 	@DisplayName("ツーペア判定のメソッド ※他の役になっている場合")
 	void test2_3() {
 		Card card = new Card(13, "ダイヤ");
 		Card card2 = new Card(13, "ハート");
 		Card card3 = new Card(13, "クラブ");
-		Card card4 = new Card(13, "スペード");
+		Card card4 = new Card(11, "スペード");
 		Card card5 = new Card(12, "ハート");
 
-		list.add(card);
-		list.add(card2);
-		list.add(card3);
-		list.add(card4);
-		list.add(card5);
-		
-		player.setList(list);
-		
+		cardList.add(card);
+		cardList.add(card2);
+		cardList.add(card3);
+		cardList.add(card4);
+		cardList.add(card5);
+
+		player.setList(cardList);
+
 		assertFalse(player.isTwoPair());
 	}
 
@@ -154,14 +162,14 @@ class PlayerTest {
 		Card card4 = new Card(11, "スペード");
 		Card card5 = new Card(12, "ハート");
 
-		list.add(card);
-		list.add(card2);
-		list.add(card3);
-		list.add(card4);
-		list.add(card5);
-		
-		player.setList(list);
-		
+		cardList.add(card);
+		cardList.add(card2);
+		cardList.add(card3);
+		cardList.add(card4);
+		cardList.add(card5);
+
+		player.setList(cardList);
+
 		for (Card c : player.getList()) {
 			System.out.println(c.getMark() + "の" + c.getNewNumber());
 		}

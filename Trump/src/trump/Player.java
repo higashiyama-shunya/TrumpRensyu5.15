@@ -7,13 +7,13 @@ import java.util.List;
 public class Player {
 	//フィールド
 	//privateに変更してgetter/setter追加
-	private	List<Card> list = new ArrayList();
+	private List<Card> cardList = new ArrayList();
 	//コンストラクタ
 
 	//メソッド
 	public boolean isOnePair() {
 		List<Integer> numList = new ArrayList();
-		for (Card c : list) {
+		for (Card c : cardList) {
 			numList.add(c.getPower());
 		}
 		List<Integer> numSet = new ArrayList(new HashSet<>(numList));
@@ -26,11 +26,11 @@ public class Player {
 	}
 
 	public List<Card> getList() {
-		return list;
+		return cardList;
 	}
 
 	public void setList(List<Card> list) {
-		this.list = list;
+		this.cardList = list;
 	}
 
 	public boolean isTwoPair() {
@@ -46,6 +46,7 @@ public class Player {
 			return true;
 		}
 		*/
+		/*	こいつだとフルハウスがTrueになる
 		List<Integer> numList = new ArrayList();
 		for (Card c : list) {
 			numList.add(c.getPower());
@@ -61,13 +62,63 @@ public class Player {
 		if (count == 2) {
 			return true;
 		}
+		*/
+
+		List<Card> cl = new ArrayList();
+		for (Card c : this.cardList) {
+			cl.add(c);
+		}
+
+		int count = 0;
+
+		loop: for (int i = 0; i < cl.size(); i++) {
+			Card card = cl.get(i);
+			for (int j = i + 1; j < cl.size(); j++) {
+				Card card2 = cl.get(j);
+				System.out.println(card.getMark() + card.getNewNumber());
+				System.out.println(card2.getMark() + card2.getNewNumber());
+				if (card.getPower() == card2.getPower()) {
+					cl.remove(i);
+					cl.remove(j - 1);
+					count++;
+					break loop;
+				}
+				System.out.println(count);
+			}
+		}
+
+		for (int i = 0; i < cl.size(); i++) {
+			Card card = cl.get(i);
+			for (int j = i + 1; j < cl.size(); j++) {
+				Card card2 = cl.get(j);
+				if (card.getPower() == card2.getPower()) {
+					cl.remove(i);
+					cl.remove(j - 1);
+					count++;
+				}
+			}
+		}
+
+		System.out.println(count);
+		System.out.println("");
+		for (Card c : cl) {
+			System.out.println(c.getMark() + c.getNewNumber());
+		}
+		if (count == 2) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isThreeCard() {
+
 		return false;
 	}
 
 	public List<Card> changeCard(int cardIndex, Card card) {
 
-		list.set((cardIndex - 1), card);
+		cardList.set((cardIndex - 1), card);
 
-		return list;
+		return cardList;
 	}
 }
