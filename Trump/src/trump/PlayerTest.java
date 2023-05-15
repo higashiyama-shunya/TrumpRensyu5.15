@@ -73,6 +73,24 @@ class PlayerTest {
 
 		assertTrue(player.isTwoPair());
 	}
+	
+	@Test
+	@DisplayName("ツーペアがあるかどうかの判定falseの場合")
+	void test2_2() {
+		Card card = new Card(13, "ダイヤ");
+		Card card2 = new Card(13, "ハート");
+		Card card3 = new Card(13, "クラブ");
+		Card card4 = new Card(11, "スペード");
+		Card card5 = new Card(12, "ハート");
+
+		player.list.add(card);
+		player.list.add(card2);
+		player.list.add(card3);
+		player.list.add(card4);
+		player.list.add(card5);
+
+		assertFalse(player.isTwoPair());
+	}
 
 	@Test
 	@DisplayName("カードチェンジメソッド")
