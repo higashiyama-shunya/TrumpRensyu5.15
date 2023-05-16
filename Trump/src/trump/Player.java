@@ -124,6 +124,7 @@ public class Player {
 		return false;
 	}
 
+	//スリーカード判定メソッド
 	public boolean isThreeCard() {
 		List<Card> cl = new ArrayList(); //空のカードリストclの作成
 		for (Card c : this.cardList) { //まず拡張for文でplayerが持っているリストを空のリストに複製していく。
