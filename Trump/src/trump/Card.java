@@ -63,7 +63,7 @@ public class Card {
 	}
 
 	//ジョーカーを生成するメソッド
-	public static Card getJoker() {
+			public static Card getJoker() {
 		Card card = new Card(99, "ジョーカー");
 		return card;
 

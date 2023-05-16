@@ -103,12 +103,6 @@ class PlayerTest {
 		cardList.add(card5);
 
 		player.setList(cardList);
-		System.out.println("");
-		for (Card c : player.getList()) {
-			System.out.println(c.getMark() + c.getNewNumber());
-		}
-		System.out.println("");
-		System.out.println(player.isTwoPair());
 
 		assertTrue(player.isTwoPair());
 	}
@@ -154,8 +148,54 @@ class PlayerTest {
 	}
 
 	@Test
+	@DisplayName("スリーカード判定のメソッド")
+	void test3_1() {
+		Card card = new Card(13, "ダイヤ");
+		Card card2 = new Card(13, "ハート");
+		Card card3 = new Card(12, "クラブ");
+		Card card4 = new Card(13, "スペード");
+		Card card5 = new Card(12, "ハート");
+
+		cardList.add(card);
+		cardList.add(card2);
+		cardList.add(card3);
+		cardList.add(card4);
+		cardList.add(card5);
+
+		player.setList(cardList);
+
+		assertTrue(player.isThreeCard());
+	}
+
+	@Test
+	@DisplayName("スリーカード判定のメソッド falseVer")
+	void test3_2() {
+		Card card = new Card(13, "ダイヤ");
+		Card card2 = new Card(13, "ハート");
+		Card card3 = new Card(12, "クラブ");
+		Card card4 = new Card(12, "スペード");
+		Card card5 = new Card(11, "ハート");
+
+		cardList.add(card);
+		cardList.add(card2);
+		cardList.add(card3);
+		cardList.add(card4);
+		cardList.add(card5);
+
+		player.setList(cardList);
+
+		assertFalse(player.isThreeCard());
+	}
+
+	@Test
+	@DisplayName("スリーカードの判定　メソッド")
+	void test3_3() {
+
+	}
+
+	@Test
 	@DisplayName("カードチェンジメソッド")
-	void test3() {
+	void test4() {
 		Card card = new Card(13, "ダイヤ");
 		Card card2 = new Card(13, "ハート");
 		Card card3 = new Card(12, "クラブ");
