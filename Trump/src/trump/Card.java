@@ -67,7 +67,7 @@ public class Card {
 
 	//マークと数字を同時に表示するメソッド
 	public void markAndNum() {
-		System.out.println(this.Mark + "の" + this.Number);
+		System.out.println(this.Mark + "の" + this.getNewNumber());
 	}
 
 	//ジョーカーを生成するメソッド
@@ -131,7 +131,7 @@ public class Card {
 			}
 		}
 
-		for (int i = 0; i < cl.size(); i++) {
+		loop: for (int i = 0; i < cl.size(); i++) {
 			Card card = cl.get(i);
 			for (int j = i + 1; j < cl.size(); j++) {
 				Card card2 = cl.get(j);
@@ -141,6 +141,7 @@ public class Card {
 					count++;
 					pairCard.add(card);
 					pairCard.add(card2);
+					break loop;
 				}
 			}
 		}
@@ -155,17 +156,18 @@ public class Card {
 			cl.add(c);
 		}
 
-		for (int i = 0; i < cl.size(); i++) {
+		loop: for (int i = 0; i < cl.size(); i++) {
 			Card card = cl.get(i);
 			for (int j = i + 1; j < cl.size(); j++) {
 				Card card2 = cl.get(j);
 				if (card.getPower() == card2.getPower()) {
-					for (int k = i + 2; k < cl.size(); k++) {
+					for (int k = j + 1; k < cl.size(); k++) {
 						Card card3 = cl.get(k);
 						if (card2.getPower() == card3.getPower()) {
 							trioCard.add(card);
 							trioCard.add(card2);
 							trioCard.add(card3);
+							break loop;
 						}
 					}
 				}

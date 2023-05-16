@@ -30,10 +30,10 @@ class CardTest {
 		List<Card> pairCard = new ArrayList();
 
 		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(13, "ハート");
+		Card card2 = new Card(10, "ハート");
 		Card card3 = new Card(12, "クラブ");
 		Card card4 = new Card(5, "スペード");
-		Card card5 = new Card(11, "ハート");
+		Card card5 = new Card(13, "ハート");
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -193,5 +193,135 @@ class CardTest {
 		for (Card c : trioCard) {
 			c.markAndNum();
 		}
+
+		assertEquals(3, trioCard.size());
+		assertEquals(trioCard.get(0).getPower(), trioCard.get(1).getPower());
+		assertEquals(trioCard.get(1).getPower(), trioCard.get(2).getPower());
+	}
+
+	@Test
+	@DisplayName("Cardのstaticメソッドでのスリーカード判定 false")
+	void test3_2() {
+		System.out.println("──Cardのstaticメソッドでのスリーカード判定 false──");
+
+		List<Card> trioCard = new ArrayList();
+
+		Card card = new Card(13, "ダイヤ");
+		Card card2 = new Card(11, "ハート");
+		Card card3 = new Card(10, "クラブ");
+		Card card4 = new Card(12, "スペード");
+		Card card5 = new Card(5, "スペード");
+
+		cardList.add(card);
+		cardList.add(card2);
+		cardList.add(card3);
+		cardList.add(card4);
+		cardList.add(card5);
+
+		player.setList(cardList);
+
+		trioCard = card.isThreeCard(cardList);
+
+		for (Card c : trioCard) {
+			c.markAndNum();
+		}
+		assertTrue(3 > trioCard.size());
+	}
+
+	@Test
+	@DisplayName("Cardのstaticメソッドでのスリーカード判定 ツーペアの場合")
+	void test3_3() {
+		System.out.println("──Cardのstaticメソッドでのスリーカード判定 ツーペアの場合──");
+
+		List<Card> trioCard = new ArrayList();
+
+		Card card = new Card(13, "ダイヤ");
+		Card card2 = new Card(12, "ハート");
+		Card card3 = new Card(1, "クラブ");
+		Card card4 = new Card(12, "スペード");
+		Card card5 = new Card(13, "スペード");
+
+		cardList.add(card);
+		cardList.add(card2);
+		cardList.add(card3);
+		cardList.add(card4);
+		cardList.add(card5);
+
+		player.setList(cardList);
+
+		trioCard = card.isThreeCard(cardList);
+
+		for (Card c : trioCard) {
+			c.markAndNum();
+		}
+
+		assertTrue(3 > trioCard.size());
+
+	}
+
+	@Test
+	@DisplayName("Cardのstaticメソッドでのスリーカード判定 フォーカードの場合")
+	void test3_4() {
+		System.out.println("──Cardのstaticメソッドでのスリーカード判定 フォーカードの場合──");
+
+		List<Card> trioCard = new ArrayList();
+
+		Card card = new Card(13, "ダイヤ");
+		Card card2 = new Card(13, "ハート");
+		Card card3 = new Card(13, "クラブ");
+		Card card4 = new Card(2, "スペード");
+		Card card5 = new Card(13, "スペード");
+
+		cardList.add(card);
+		cardList.add(card2);
+		cardList.add(card3);
+		cardList.add(card4);
+		cardList.add(card5);
+
+		player.setList(cardList);
+
+		trioCard = card.isThreeCard(cardList);
+
+		for (Card c : trioCard) {
+			c.markAndNum();
+		}
+
+		assertEquals(3, trioCard.size());
+		assertEquals(trioCard.get(0).getPower(), trioCard.get(1).getPower());
+		assertEquals(trioCard.get(1).getPower(), trioCard.get(2).getPower());
+
+	}
+
+	@Test
+	@DisplayName("Cardのstaticメソッドでのスリーカード判定 フルハウスの場合")
+	void test3_5() {
+		System.out.println("──Cardのstaticメソッドでのスリーカード判定 フルハウスの場合──");
+
+		List<Card> trioCard = new ArrayList();
+
+		Card card = new Card(13, "ダイヤ");
+		Card card2 = new Card(13, "ハート");
+		Card card3 = new Card(12, "クラブ");
+		Card card4 = new Card(12, "スペード");
+		Card card5 = new Card(13, "スペード");
+
+		cardList.add(card);
+		cardList.add(card2);
+		cardList.add(card3);
+		cardList.add(card4);
+		cardList.add(card5);
+
+		player.setList(cardList);
+
+		trioCard = card.isThreeCard(cardList);
+
+		for (Card c : trioCard) {
+			c.markAndNum();
+		}
+
+		assertEquals(3, trioCard.size());
+		assertEquals(trioCard.get(0).getPower(), trioCard.get(1).getPower());
+		assertEquals(trioCard.get(1).getPower(), trioCard.get(2).getPower());
+
 	}
 }
