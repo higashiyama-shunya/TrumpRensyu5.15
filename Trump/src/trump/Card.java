@@ -148,8 +148,9 @@ public class Card {
 	}
 
 	//スリーカードを判定するメソッド作成
-	public static boolean isThreeCard(List<Card> cardList) {
+	public static List<Card> isThreeCard(List<Card> cardList) {
 		List<Card> cl = new ArrayList(); //空のカードリストclの作成
+		List<Card> trioCard = new ArrayList(); //3カードがあった場合、入れるリスト。
 		for (Card c : cardList) { //まず拡張for文でplayerが持っているリストを空のリストに複製していく。
 			cl.add(c);
 		}
@@ -162,14 +163,15 @@ public class Card {
 					for (int k = i + 2; k < cl.size(); k++) {
 						Card card3 = cl.get(k);
 						if (card2.getPower() == card3.getPower()) {
-							return true;
+							trioCard.add(card);
+							trioCard.add(card2);
+							trioCard.add(card3);
 						}
 					}
 				}
 			}
 		}
-
-		return false;
+		return trioCard;
 	}
 
 }
