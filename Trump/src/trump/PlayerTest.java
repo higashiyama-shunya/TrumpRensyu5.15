@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import trump.Card.Mark;
+
 class PlayerTest {
 	//フィールドをprivateにしたので直接引っ張ていたところをgetterやsetterに変更
 
@@ -28,11 +30,11 @@ class PlayerTest {
 	@Test
 	@DisplayName("ワンペアがあるかの判定メソッド")
 	void test1() {
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(13, "ハート");
-		Card card3 = new Card(12, "クラブ");
-		Card card4 = new Card(5, "スペード");
-		Card card5 = new Card(11, "ハート");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(13, Mark.HEART);
+		Card card3 = new Card(12, Mark.CLUB);
+		Card card4 = new Card(5, Mark.SPADE);
+		Card card5 = new Card(11, Mark.HEART);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -49,11 +51,11 @@ class PlayerTest {
 	@Test
 	@DisplayName("ワンペアがあるかの判定メソッド、Falseの場合")
 	void test1_2() {
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(12, "ハート");
-		Card card3 = new Card(10, "クラブ");
-		Card card4 = new Card(11, "スペード");
-		Card card5 = new Card(7, "ハート");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(12, Mark.HEART);
+		Card card3 = new Card(10, Mark.CLUB);
+		Card card4 = new Card(11, Mark.SPADE);
+		Card card5 = new Card(7, Mark.HEART);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -70,11 +72,11 @@ class PlayerTest {
 	@Test
 	@DisplayName("ワンペア判定 ※他の役になっている場合")
 	void test1_3() {
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(13, "ハート");
-		Card card3 = new Card(13, "クラブ");
-		Card card4 = new Card(11, "スペード");
-		Card card5 = new Card(11, "スペード");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(13, Mark.HEART);
+		Card card3 = new Card(13, Mark.CLUB);
+		Card card4 = new Card(11, Mark.SPADE);
+		Card card5 = new Card(11, Mark.HEART);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -90,11 +92,11 @@ class PlayerTest {
 	@Test
 	@DisplayName("ツーペアがあるかどうか")
 	void test2() {
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(13, "ハート");
-		Card card3 = new Card(12, "クラブ");
-		Card card4 = new Card(11, "スペード");
-		Card card5 = new Card(12, "ハート");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(13, Mark.HEART);
+		Card card3 = new Card(12, Mark.CLUB);
+		Card card4 = new Card(11, Mark.SPADE);
+		Card card5 = new Card(12, Mark.HEART);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -110,11 +112,11 @@ class PlayerTest {
 	@Test
 	@DisplayName("ツーペアがあるかどうかの判定falseの場合")
 	void test2_2() {
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(13, "ハート");
-		Card card3 = new Card(13, "クラブ");
-		Card card4 = new Card(10, "スペード");
-		Card card5 = new Card(12, "ハート");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(13, Mark.HEART);
+		Card card3 = new Card(11, Mark.CLUB);
+		Card card4 = new Card(10, Mark.SPADE);
+		Card card5 = new Card(12, Mark.HEART);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -130,11 +132,11 @@ class PlayerTest {
 	@Test
 	@DisplayName("ツーペア判定のメソッド ※他の役になっている場合")
 	void test2_3() {
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(13, "ハート");
-		Card card3 = new Card(13, "クラブ");
-		Card card4 = new Card(11, "スペード");
-		Card card5 = new Card(12, "ハート");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(13, Mark.HEART);
+		Card card3 = new Card(13, Mark.CLUB);
+		Card card4 = new Card(11, Mark.SPADE);
+		Card card5 = new Card(12, Mark.HEART);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -150,11 +152,11 @@ class PlayerTest {
 	@Test
 	@DisplayName("スリーカード判定のメソッド")
 	void test3_1() {
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(13, "ハート");
-		Card card3 = new Card(12, "クラブ");
-		Card card4 = new Card(13, "スペード");
-		Card card5 = new Card(12, "ハート");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(13, Mark.HEART);
+		Card card3 = new Card(12, Mark.CLUB);
+		Card card4 = new Card(13, Mark.SPADE);
+		Card card5 = new Card(12, Mark.HEART);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -170,11 +172,11 @@ class PlayerTest {
 	@Test
 	@DisplayName("スリーカード判定のメソッド falseVer")
 	void test3_2() {
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(13, "ハート");
-		Card card3 = new Card(12, "クラブ");
-		Card card4 = new Card(12, "スペード");
-		Card card5 = new Card(11, "ハート");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(13, Mark.HEART);
+		Card card3 = new Card(12, Mark.CLUB);
+		Card card4 = new Card(12, Mark.SPADE);
+		Card card5 = new Card(11, Mark.HEART);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -196,11 +198,11 @@ class PlayerTest {
 	@Test
 	@DisplayName("カードチェンジメソッド")
 	void test4() {
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(13, "ハート");
-		Card card3 = new Card(12, "クラブ");
-		Card card4 = new Card(11, "スペード");
-		Card card5 = new Card(12, "ハート");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(13, Mark.HEART);
+		Card card3 = new Card(12, Mark.CLUB);
+		Card card4 = new Card(11, Mark.SPADE);
+		Card card5 = new Card(12, Mark.HEART);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -215,7 +217,7 @@ class PlayerTest {
 		}
 
 		System.out.println("");
-		Card card6 = new Card(10, "クラブ");
+		Card card6 = new Card(10, Mark.CLUB);
 		player.changeCard(5, card6);
 		for (Card c : player.getList()) {
 			System.out.println(c.getMark() + "の" + c.getNewNumber());

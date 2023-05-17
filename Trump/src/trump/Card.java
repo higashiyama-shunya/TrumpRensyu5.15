@@ -6,25 +6,27 @@ import java.util.List;
 public class Card {
 	//フィールド
 	private int Number;
-	private String Mark;
-	private int Priority;
+	private Mark mark;
 
-	//コンストラクタ
-	public Card(int number, String mark) {
-		this.Number = number;
-		this.Mark = mark;
-		if (mark.equals("ジョーカー")) {
-			this.Priority = 5;
-		} else if (mark.equals("スペード")) {
-			this.Priority = 4;
-		} else if (mark.equals("ハート")) {
-			this.Priority = 3;
-		} else if (mark.equals("ダイヤ")) {
-			this.Priority = 2;
-		} else if (mark.equals("クラブ")) {
-			this.Priority = 1;
+	//enumメソッド
+	//
+	public enum Mark {
+		JOKER("ジョーカー", 5), SPADE("スペード", 4), HEART("ハート", 3), DIAMOND("ダイヤ", 2), CLUB("クラブ", 1);
+
+		private final String name;
+		private final int priority;
+
+		private Mark(String name, int priority) {
+			this.name = name;
+			this.priority = priority;
 		}
 
+	};
+
+	//コンストラクタ
+	public Card(int number, Mark mark) {
+		this.Number = number;
+		this.mark = mark;
 	}
 
 	//メソッド
@@ -34,13 +36,13 @@ public class Card {
 	}
 
 	public String getMark() {
-		return this.Mark;
+		return this.mark.name;
 	}
 
 	//大小を比較するメソッド
 	public int compareTo(Card anotherCard) {
 		if (Integer.compare(this.Number, anotherCard.getPower()) == 0) {
-			return Integer.compare(this.Priority, anotherCard.Priority);
+			return Integer.compare(this.mark.priority, anotherCard.mark.priority);
 		}
 		return Integer.compare(this.Number, anotherCard.getPower());
 	}
@@ -66,13 +68,17 @@ public class Card {
 	}
 
 	//マークと数字を同時に表示するメソッド
-	public void markAndNum() {
-		System.out.println(this.Mark + "の" + this.getNewNumber());
+	public String markAndNum() {
+		if (this.mark == Mark.JOKER) {
+			return this.mark.name;
+		} else {
+			return this.mark.name + "の" + this.getNewNumber();
+		}
 	}
 
 	//ジョーカーを生成するメソッド
 	public static Card getJoker() {
-		Card card = new Card(99, "ジョーカー");
+		Card card = new Card(99, Mark.JOKER);
 		return card;
 
 	}

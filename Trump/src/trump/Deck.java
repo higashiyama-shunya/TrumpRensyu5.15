@@ -1,36 +1,36 @@
 package trump;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import trump.Card.Mark;
+
 public class Deck {
 	//フィールド
-	public List<Card> cards = new ArrayList();
+	//2023.5.17フィールド変数がpublicだったのでprivateに変更
+	private final List<Card> cards = new ArrayList();
 	//コンストラクタ
 
 	public Deck() {
-		for (int i = 0; i < 4; i++) {
-			for (int j = 1; j < 14; j++) {
-				String mark;
-				if (i == 0) {
-					mark = "スペード";
-				} else if (i == 1) {
-					mark = "クラブ";
-				} else if (i == 2) {
-					mark = "ハート";
-				} else {
-					mark = "ダイヤ";
-				}
-				int k = j;
-				if (k == 11) {
+		//配列をリストにするメソッドasListを使用してmarksリストを作成。
+		List<Card.Mark> marks = Arrays.asList(
+				Card.Mark.SPADE,
+				Card.Mark.CLUB,
+				Card.Mark.DIAMOND,
+				Card.Mark.HEART);
 
-				}
-				Card card = new Card(k, mark);
+		//上で作成したmarksリストを拡張for文でmarkに代入していく。
+		for (Mark mark : marks) {
+			for (int j = 1; j < 14; j++) {
+				int k = j;
+				Card card = new Card(k, mark); //代入したmarkと繰り返しのjでカードインスタンスの作成
 				cards.add(card);
 			}
 		}
-		Card card = new Card(14, "ジョーカー");
+
+		Card card = Card.getJoker();
 		cards.add(card);
 		cards.add(card); //最後の方に追加するようにする
 	}
@@ -56,6 +56,11 @@ public class Deck {
 	//カードを一番上に置くメソッド
 	public void put(Card card) {
 		cards.add(card);
+	}
+
+	//デッキを取得するgetter
+	public List<Card> getCards() {
+		return cards;
 	}
 
 }

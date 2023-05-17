@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import trump.Card.Mark;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -26,7 +28,7 @@ public class Main {
 
 		}
 
-		Card max = new Card(0, "");
+		Card max = new Card(0, Mark.CLUB);
 
 		for (Card c : list) {
 			if (c.compareTo(max) == 1) {
@@ -50,21 +52,21 @@ public class Main {
 			System.out.print(mark + "の" + Number + ",");
 		}
 		System.out.println("の5枚で、その中で最も強いカードは");
-		System.out.println(max.getMark() + "の" + max.getNewNumber() + "です");
+		System.out.println(max.markAndNum() + "です");
 		System.out.println("──終了──\n");
 
 		System.out.println("デッキにカードを戻して引くと同じカードが出現する。");
 		System.out.println("──開始──");
 		System.out.println("カードを引きます");
 		Card one = deck.draw();
-		System.out.println("引いたカードは" + one.getMark() + "の" + one.getNewNumber() + "です");
+		System.out.println("引いたカードは" + one.markAndNum() + "です");
 
 		System.out.println("カードを山札の上に戻します");
 		deck.put(one);
 
 		System.out.println("もう1度引きます");
 		Card onemore = deck.draw();
-		System.out.println("引いたカードは" + onemore.getMark() + "の" + onemore.getNewNumber() + "です");
+		System.out.println("引いたカードは" + onemore.markAndNum() + "です");
 
 		System.out.println("──終了──\n");
 
@@ -73,18 +75,18 @@ public class Main {
 		System.out.println("カードを新しく作成します");
 		System.out.println("好きなカードのマークと数字を入力してください");
 		Scanner sc = new Scanner(System.in);
-		System.out.println("マークをカタカナで入力");
+		System.out.println("マークを大文字英語で入力");
 		String m = sc.next();
 		System.out.println("数字を1~13までで入力");
 		int n = sc.nextInt();
-		Card newCard = new Card(n, m);
+		Card newCard = new Card(n, Mark.valueOf(m));
 
 		System.out.println("作成したカードを山札に置いてシャッフルします。");
 		deck.put(newCard);
 		deck.shuffle();
 
 		System.out.println("山札を全て見ます");
-		for (Card c : deck.cards) {
+		for (Card c : deck.getCards()) {
 			System.out.println(c.getMark() + "の" + c.getNewNumber());
 		}
 

@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import trump.Card.Mark;
+
 class CardTest {
 
 	Player player;
@@ -29,11 +31,11 @@ class CardTest {
 		System.out.println("──Cardのstaticメソッドでのワンペア判定──");
 		List<Card> pairCard = new ArrayList();
 
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(10, "ハート");
-		Card card3 = new Card(12, "クラブ");
-		Card card4 = new Card(5, "スペード");
-		Card card5 = new Card(13, "ハート");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(10, Mark.HEART);
+		Card card3 = new Card(12, Mark.CLUB);
+		Card card4 = new Card(5, Mark.SPADE);
+		Card card5 = new Card(13, Mark.HEART);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -58,11 +60,11 @@ class CardTest {
 		System.out.println("──Cardのstaticメソッドでのワンペア判定 false──");
 		List<Card> pairCard = new ArrayList();
 
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(10, "ハート");
-		Card card3 = new Card(12, "クラブ");
-		Card card4 = new Card(5, "スペード");
-		Card card5 = new Card(11, "ハート");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(10, Mark.HEART);
+		Card card3 = new Card(12, Mark.CLUB);
+		Card card4 = new Card(5, Mark.SPADE);
+		Card card5 = new Card(11, Mark.HEART);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -87,11 +89,11 @@ class CardTest {
 		System.out.println("──Cardのstaticメソッドでのツーペア判定──");
 		List<Card> pairCard = new ArrayList();
 
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(13, "ハート");
-		Card card3 = new Card(13, "クラブ");
-		Card card4 = new Card(6, "スペード");
-		Card card5 = new Card(13, "スペード");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(13, Mark.HEART);
+		Card card3 = new Card(13, Mark.CLUB);
+		Card card4 = new Card(6, Mark.SPADE);
+		Card card5 = new Card(13, Mark.SPADE);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -118,11 +120,11 @@ class CardTest {
 		System.out.println("──Cardのstaticメソッドでのツーペア判定 false──");
 		List<Card> pairCard = new ArrayList();
 
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(8, "ハート");
-		Card card3 = new Card(11, "クラブ");
-		Card card4 = new Card(10, "スペード");
-		Card card5 = new Card(5, "スペード");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(8, Mark.HEART);
+		Card card3 = new Card(11, Mark.CLUB);
+		Card card4 = new Card(10, Mark.SPADE);
+		Card card5 = new Card(5, Mark.SPADE);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -146,11 +148,11 @@ class CardTest {
 		System.out.println("──Cardのstaticメソッドでのツーペア判定 スリーカードの場合──");
 		List<Card> pairCard = new ArrayList();
 
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(13, "ハート");
-		Card card3 = new Card(13, "クラブ");
-		Card card4 = new Card(10, "スペード");
-		Card card5 = new Card(5, "スペード");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(13, Mark.HEART);
+		Card card3 = new Card(13, Mark.CLUB);
+		Card card4 = new Card(10, Mark.SPADE);
+		Card card5 = new Card(5, Mark.SPADE);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -174,11 +176,11 @@ class CardTest {
 		System.out.println("──Cardのstaticメソッドでのスリーカード判定──");
 		List<Card> trioCard = new ArrayList();
 
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(13, "ハート");
-		Card card3 = new Card(13, "クラブ");
-		Card card4 = new Card(10, "スペード");
-		Card card5 = new Card(5, "スペード");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(13, Mark.HEART);
+		Card card3 = new Card(13, Mark.CLUB);
+		Card card4 = new Card(10, Mark.SPADE);
+		Card card5 = new Card(5, Mark.SPADE);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -206,11 +208,11 @@ class CardTest {
 
 		List<Card> trioCard = new ArrayList();
 
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(11, "ハート");
-		Card card3 = new Card(10, "クラブ");
-		Card card4 = new Card(12, "スペード");
-		Card card5 = new Card(5, "スペード");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(11, Mark.HEART);
+		Card card3 = new Card(10, Mark.CLUB);
+		Card card4 = new Card(12, Mark.SPADE);
+		Card card5 = new Card(5, Mark.SPADE);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -235,11 +237,11 @@ class CardTest {
 
 		List<Card> trioCard = new ArrayList();
 
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(12, "ハート");
-		Card card3 = new Card(1, "クラブ");
-		Card card4 = new Card(12, "スペード");
-		Card card5 = new Card(13, "スペード");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(12, Mark.HEART);
+		Card card3 = new Card(1, Mark.CLUB);
+		Card card4 = new Card(12, Mark.SPADE);
+		Card card5 = new Card(13, Mark.SPADE);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -266,11 +268,11 @@ class CardTest {
 
 		List<Card> trioCard = new ArrayList();
 
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(13, "ハート");
-		Card card3 = new Card(13, "クラブ");
-		Card card4 = new Card(2, "スペード");
-		Card card5 = new Card(13, "スペード");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(13, Mark.HEART);
+		Card card3 = new Card(13, Mark.CLUB);
+		Card card4 = new Card(2, Mark.SPADE);
+		Card card5 = new Card(13, Mark.SPADE);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -299,11 +301,11 @@ class CardTest {
 
 		List<Card> trioCard = new ArrayList();
 
-		Card card = new Card(13, "ダイヤ");
-		Card card2 = new Card(13, "ハート");
-		Card card3 = new Card(12, "クラブ");
-		Card card4 = new Card(12, "スペード");
-		Card card5 = new Card(13, "スペード");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(13, Mark.HEART);
+		Card card3 = new Card(12, Mark.CLUB);
+		Card card4 = new Card(12, Mark.SPADE);
+		Card card5 = new Card(13, Mark.SPADE);
 
 		cardList.add(card);
 		cardList.add(card2);

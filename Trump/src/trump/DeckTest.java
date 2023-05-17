@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import trump.Card.Mark;
+
 class DeckTest {
 
 	Card card;
@@ -27,26 +29,22 @@ class DeckTest {
 		list = new ArrayList();
 		List<Card> maxList = new ArrayList();
 
-		for (int i = 0; i < 54; i++) {
-			Card draw = deck.draw();
-			list.add(draw);
+		System.out.println("カードを2枚引きます");
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(10, Mark.DIAMOND);
+		System.out.println(card.markAndNum() + "と" + card2.markAndNum());
 
+		System.out.println("2枚のうち、強いカードは");
+
+		int compare = card.compareTo(card2);
+
+		if (compare > 0) {
+			System.out.println(card.markAndNum() + "の方が強い");
+		} else if (compare < 0) {
+			System.out.println(card2.markAndNum() + "の方が強い");
+		} else {
+			System.out.println("引き分けです");
 		}
-
-		Card max = new Card(0, "");
-
-		for (Card c : list) {
-			if (c.compareTo(max) == 1) {
-				max = c;
-			}
-		}
-
-		System.out.println("引いた54枚のカードは...");
-		for (Card c : list) {
-			System.out.print(c.getMark() + "の" + c.getNewNumber() + ",");
-		}
-		System.out.println("の5枚で、その中で最も強いカードは");
-		System.out.println(max.getMark() + "の" + max.getNewNumber() + "です");
 
 		//文字表現への変換は2つの方法で行った
 		//1つはメインでif文を使って分岐をさせてNumberの文字列を対応する文字に変換
@@ -60,14 +58,14 @@ class DeckTest {
 		System.out.println("──開始──");
 		System.out.println("カードを引きます");
 		Card one = deck.draw();
-		System.out.println("引いたカードは" + one.getMark() + "の" + one.getNewNumber() + "です");
+		System.out.println("引いたカードは" + one.markAndNum() + "です");
 
 		System.out.println("カードを山札の上に戻します");
 		deck.put(one);
 
 		System.out.println("もう1度引きます");
 		Card onemore = deck.draw();
-		System.out.println("引いたカードは" + onemore.getMark() + "の" + onemore.getNewNumber() + "です");
+		System.out.println("引いたカードは" + onemore.markAndNum() + "です");
 
 		assertEquals(one, onemore);
 
@@ -80,14 +78,14 @@ class DeckTest {
 		System.out.println("カードインスタンスを作成しデッキに積み込むとそのカードが出現する");
 		System.out.println("──開始──");
 		System.out.println("カードを新しく作成します");
-		Card newCard = new Card(13, "ダイヤ");
+		Card newCard = new Card(13, Mark.HEART);
 
 		System.out.println("作成したカードを山札に置いてシャッフルします。");
 		deck.put(newCard);
 
 		System.out.println("山札を全て見ます");
-		for (Card c : deck.cards) {
-			System.out.println(c.getMark() + "の" + c.getNewNumber());
+		for (Card c : deck.getCards()) {
+			System.out.println(c.markAndNum());
 		}
 
 		System.out.println("──終了──\n");
@@ -96,10 +94,10 @@ class DeckTest {
 	@Test
 	@DisplayName("大小の比較のメソッド テスト ジョーカーカード生成メソッドのテスト")
 	void test4() {
-		Card card1 = new Card(5, "ダイヤ");
-		Card card2 = new Card(13, "ハート");
-		Card card3 = new Card(13, "ハート");
-		Card card4 = new Card(13, "クラブ");
+		Card card1 = new Card(5, Mark.DIAMOND);
+		Card card2 = new Card(13, Mark.HEART);
+		Card card3 = new Card(13, Mark.HEART);
+		Card card4 = new Card(13, Mark.CLUB);
 
 		//card2がcard1より大きければ1を、小さければ-1を、同じであれば0を返すメソッドcompareToメソッドのテスト
 		assertEquals(1, card2.compareTo(card1));
@@ -117,18 +115,18 @@ class DeckTest {
 	@Test
 	@DisplayName("引いたカードがちゃんと山札からなくなっているかのテスト")
 	void test5() {
-		assertEquals(54, deck.cards.size());
+		assertEquals(54, deck.getCards().size());
 		deck.draw();
-		assertEquals(53, deck.cards.size()); //引いた後に1引いた数と合ったら成功
+		assertEquals(53, deck.getCards().size()); //引いた後に1引いた数と合ったら成功
 	}
 
 	@Test
 	@DisplayName("11以上の数値の際に、文字表現になっているかのテスト")
 	void test6() {
-		Card card1 = new Card(11, "ダイヤ");
-		Card card2 = new Card(12, "ハート");
-		Card card3 = new Card(13, "クラブ");
-		Card card4 = new Card(14, "ジョーカー");
+		Card card1 = new Card(11, Mark.DIAMOND);
+		Card card2 = new Card(12, Mark.HEART);
+		Card card3 = new Card(13, Mark.CLUB);
+		Card card4 = Card.getJoker();
 
 		assertEquals("ジャック", card1.getNewNumber());
 		assertEquals("クイーン", card2.getNewNumber());
