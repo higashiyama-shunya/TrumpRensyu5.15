@@ -31,11 +31,11 @@ class CardTest {
 		System.out.println("──Cardのstaticメソッドでのワンペア判定──");
 		List<Card> pairCard = new ArrayList();
 
-		Card card = new Card(13, Mark.DIAMOND);
-		Card card2 = new Card(10, Mark.HEART);
-		Card card3 = new Card(12, Mark.CLUB);
-		Card card4 = new Card(5, Mark.SPADE);
-		Card card5 = new Card(13, Mark.HEART);
+		Card card = new Card(7, Mark.DIAMOND);
+		Card card2 = new Card(11, Mark.HEART);
+		Card card3 = new Card(2, Mark.CLUB);
+		Card card4 = new Card(11, Mark.SPADE);
+		Card card5 = new Card(1, Mark.HEART);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -48,7 +48,7 @@ class CardTest {
 		pairCard = card.isOnePair(cardList);
 
 		for (Card c : pairCard) {
-			c.markAndNum();
+			System.out.println(c.markAndNum());
 		}
 
 		assertEquals(pairCard.get(0).getPower(), pairCard.get(1).getPower());

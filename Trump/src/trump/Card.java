@@ -92,8 +92,6 @@ public class Card {
 			cl.add(c); //playerが持っているリストを拡張for文で回して空のリストに追加していく
 		}
 
-		int count = 0; //int型で0の変数countを宣言
-
 		for (int i = 0; i < cl.size(); i++) { //for文でiを0から回す
 			Card card = cl.get(i); //i番にあるカードを生成
 			for (int j = i + 1; j < cl.size(); j++) { //forでjをi+1から回す　※iの次に来るカードはi+1で出てそれより前のカードはもう判定されている
@@ -101,11 +99,9 @@ public class Card {
 				if (card.getPower() == card2.getPower()) { //if文でカードの数値が一致した場合
 					cl.remove(i); //合っていた2枚ののカードを削除
 					cl.remove(j - 1); //j-1のカードは上のremoveで消えて数値が1ずれるため-1している。
-					count++; //count変数を1つ追加
-					if (count == 1) {
-						pairCard.add(card);
-						pairCard.add(card2);
-					}
+					pairCard.add(card);
+					pairCard.add(card2);
+
 				}
 			}
 		}
