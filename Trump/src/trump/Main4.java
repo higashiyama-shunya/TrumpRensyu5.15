@@ -11,10 +11,10 @@ public class Main4 {
 	public static void main(String[] args) {
 		//カードを好きな枚数引いてその中で一番数字が大きいカードを表示
 		Deck deck = new Deck();
-		maxCard(deck);
-		System.out.println("デッキをシャッフルします。");
-		deck.shuffle();
-		maxCard(deck);
+		//maxCard(deck);
+
+		Card card = new Card(10, Mark.CLUB);
+		System.out.println(card.getPower());
 
 		System.out.println("次にポーカーです。");
 		porker(deck);
@@ -54,8 +54,9 @@ public class Main4 {
 	//カードを5枚引いて役ができているか確認して、手札と役を表示するメソッド
 	public static void porker(Deck deck) {
 		Player player = new Player(); //手札を引く役としてプレイヤーをインスタンス化
+		int power = 0;
 		List<Card> hand = player.getList(); //手札を受け取る用のリスト
-		List<Card> pairCard = new ArrayList(); //役があった時のカードを受け取るリスト
+		List<Card> pairCard = null; //役があった時のカードを受け取るリスト
 
 		System.out.println("カードを5枚引きます");
 
@@ -65,7 +66,22 @@ public class Main4 {
 		}
 
 		String role = null; //役の名前を受け取る変数
+		power = Card.isThreeCard(hand);
+		if (power != 0) {
+			role = "スリーカード";
+		} else {
+			power = Card.isTwoPair(hand);
+			if (power != 0) {
+				role = "ツーペア";
+			} else {
+				power = Card.isOnePair(hand);
+				if (power != 0) {
+					role = "ワンペア";
+				}
+			}
+		}
 
+		/*
 		pairCard = Card.isThreeCard(hand);
 		if (pairCard != null) {
 			role = "スリーカード";
@@ -80,11 +96,14 @@ public class Main4 {
 				}
 			}
 		}
+		 */
+
 		System.out.println("引いたカードは");
 		for (Card c : hand) {
 			System.out.print(c.markAndNum() + ",");
 		}
 		System.out.println("です。");
+
 		System.out.print("役は");
 		if (role != null) {
 			System.out.print(role + "です。\n");

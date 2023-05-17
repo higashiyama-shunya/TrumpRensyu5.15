@@ -41,14 +41,29 @@ public class Card {
 
 	//大小を比較するメソッド
 	public int compareTo(Card anotherCard) {
-		if (Integer.compare(this.Number, anotherCard.getPower()) == 0) {
-			return Integer.compare(this.mark.priority, anotherCard.mark.priority);
-		}
-		return Integer.compare(this.Number, anotherCard.getPower());
+		return this.getPower() - anotherCard.getPower();
 	}
 
-	//数値を代わりにintとして渡すメソッド
+	//マークや数字の値から出されるパワーを返すメソッド
 	public int getPower() {
+		int power = 0;
+
+		if (mark == Mark.JOKER) {
+			//ジョーカーを15
+			power = 15;
+		} else if (Number == 1) {
+			//ACEを14に設定
+			power = 14;
+		} else {
+			power = Number;
+		}
+
+		power = power * 10 + mark.priority;
+
+		return power;
+	}
+
+	public int getPower2() {
 		return this.Number;
 	}
 
@@ -60,8 +75,8 @@ public class Card {
 			return "クイーン";
 		} else if (this.Number == 13) {
 			return "キング";
-		} else if (this.Number >= 14) {
-			return "ジョーカー";
+		} else if (this.Number == 1) {
+			return "エース";
 		} else {
 			return Integer.toString(this.Number);
 		} //このメソッドを新しく作るのではなく、本来のgetNumberに追加した書いたほうがメソッドが少なくなって分かりやすい。
@@ -84,7 +99,8 @@ public class Card {
 	}
 
 	//ワンペア判定を行うメソッド
-	public static List<Card> isOnePair(List<Card> cardList) {
+	public static int isOnePair(List<Card> cardList) {
+		int allPower = 0;
 		List<Card> cl = new ArrayList(); //まず空のカードリストを作成
 		List<Card> pairCard = new ArrayList(); //ペアのカードを入れるリストを作成
 
@@ -96,7 +112,7 @@ public class Card {
 			Card card = cl.get(i); //i番にあるカードを生成
 			for (int j = i + 1; j < cl.size(); j++) { //forでjをi+1から回す　※iの次に来るカードはi+1で出てそれより前のカードはもう判定されている
 				Card card2 = cl.get(j); //j番にあるカードを取得
-				if (card.getPower() == card2.getPower()) { //if文でカードの数値が一致した場合
+				if (card.getPower2() == card2.getPower2()) { //if文でカードの数値が一致した場合
 					cl.remove(i); //合っていた2枚ののカードを削除
 					cl.remove(j - 1); //j-1のカードは上のremoveで消えて数値が1ずれるため-1している。
 					pairCard.add(card);
@@ -105,11 +121,17 @@ public class Card {
 				}
 			}
 		}
-		return pairCard;
+		for (Card c : pairCard) {
+			int power = c.getPower();
+			allPower = allPower + power;
+		}
+
+		return allPower;
 	}
 
 	//ツーペア判定を行うメソッド
-	public static List<Card> isTwoPair(List<Card> cardList) {
+	public static int isTwoPair(List<Card> cardList) {
+		int allPower = 0;
 		List<Card> cl = new ArrayList();
 		List<Card> pairCard = new ArrayList();
 		for (Card c : cardList) {
@@ -122,7 +144,7 @@ public class Card {
 			Card card = cl.get(i);
 			for (int j = i + 1; j < cl.size(); j++) {
 				Card card2 = cl.get(j);
-				if (card.getPower() == card2.getPower()) {
+				if (card.getPower2() == card2.getPower2()) {
 					cl.remove(i);
 					cl.remove(j - 1);
 					count++;
@@ -137,7 +159,7 @@ public class Card {
 			Card card = cl.get(i);
 			for (int j = i + 1; j < cl.size(); j++) {
 				Card card2 = cl.get(j);
-				if (card.getPower() == card2.getPower()) {
+				if (card.getPower2() == card2.getPower2()) {
 					cl.remove(i);
 					cl.remove(j - 1);
 					count++;
@@ -147,11 +169,17 @@ public class Card {
 				}
 			}
 		}
-		return pairCard;
+		if (pairCard.size() == 4) {
+			for (Card c : pairCard) {
+				allPower = allPower + c.getPower();
+			}
+		}
+		return allPower;
 	}
 
 	//スリーカードを判定するメソッド作成
-	public static List<Card> isThreeCard(List<Card> cardList) {
+	public static int isThreeCard(List<Card> cardList) {
+		int allPower = 0;
 		List<Card> cl = new ArrayList(); //空のカードリストclの作成
 		List<Card> trioCard = new ArrayList(); //3カードがあった場合、入れるリスト。
 		for (Card c : cardList) { //まず拡張for文でplayerが持っているリストを空のリストに複製していく。
@@ -162,10 +190,10 @@ public class Card {
 			Card card = cl.get(i);
 			for (int j = i + 1; j < cl.size(); j++) {
 				Card card2 = cl.get(j);
-				if (card.getPower() == card2.getPower()) {
+				if (card.getPower2() == card2.getPower2()) {
 					for (int k = j + 1; k < cl.size(); k++) {
 						Card card3 = cl.get(k);
-						if (card2.getPower() == card3.getPower()) {
+						if (card2.getPower2() == card3.getPower2()) {
 							trioCard.add(card);
 							trioCard.add(card2);
 							trioCard.add(card3);
@@ -175,7 +203,10 @@ public class Card {
 				}
 			}
 		}
-		return trioCard;
+		for (Card c : trioCard) {
+			allPower = allPower + c.getPower();
+		}
+		return allPower;
 	}
 
 }

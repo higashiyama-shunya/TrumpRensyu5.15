@@ -33,6 +33,7 @@ public class Deck {
 		Card card = Card.getJoker();
 		cards.add(card);
 		cards.add(card); //最後の方に追加するようにする
+		Collections.shuffle(cards);
 	}
 
 	//メソッド
