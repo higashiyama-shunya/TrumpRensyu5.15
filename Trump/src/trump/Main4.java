@@ -11,7 +11,7 @@ public class Main4 {
 	public static void main(String[] args) {
 		//カードを好きな枚数引いてその中で一番数字が大きいカードを表示
 		Deck deck = new Deck();
-		//maxCard(deck);
+		maxCard(deck);
 
 		Card card = new Card(10, Mark.CLUB);
 		System.out.println(card.getPower());

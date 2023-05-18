@@ -30,9 +30,9 @@ public class Deck {
 			}
 		}
 
-		Card card = Card.getRedJoker();
+		Card card = Card.getJoker(15);
 		cards.add(card);
-		Card card2 = Card.getBrackJoker();
+		Card card2 = Card.getJoker(16);
 		cards.add(card2); //レッドジョーカーとブラックジョーカーの2つを生成してデッキに入れる。
 		Collections.shuffle(cards);
 	}

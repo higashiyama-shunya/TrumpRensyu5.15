@@ -11,8 +11,7 @@ public class Card {
 	//enumメソッド
 	//
 	public enum Mark {
-		REDJOKER("レッドジョーカー", 6), BRACKJOKER("ブラックジョーカー", 5), SPADE("スペード", 4), HEART("ハート", 3), DIAMOND("ダイヤ",
-				2), CLUB("クラブ", 1);
+		JOKER("ジョーカー", 5), SPADE("スペード", 4), HEART("ハート", 3), DIAMOND("ダイヤ", 2), CLUB("クラブ", 1);
 
 		private final String name;
 		private final int priority;
@@ -49,10 +48,7 @@ public class Card {
 	public int getPower() {
 		int power = 0;
 
-		if (mark == Mark.REDJOKER || mark == Mark.BRACKJOKER) {
-			//ジョーカーを15
-			power = 15;
-		} else if (Number == 1) {
+		if (Number == 1) {
 			//ACEを14に設定
 			power = 14;
 		} else {
@@ -85,22 +81,16 @@ public class Card {
 
 	//マークと数字を同時に表示するメソッド
 	public String markAndNum() {
-		if (this.mark == Mark.REDJOKER || this.mark == Mark.BRACKJOKER) {
+		if (this.mark == Mark.JOKER) {
 			return this.mark.name;
 		} else {
 			return this.mark.name + "の" + this.getNewNumber();
 		}
 	}
 
-	//レッドジョーカーを生成するメソッド
-	public static Card getRedJoker() {
-		Card card = new Card(99, Mark.REDJOKER);
-		return card;
-	}
-
-	//ブラックジョーカーを生成するメソッド
-	public static Card getBrackJoker() {
-		Card card = new Card(99, Mark.BRACKJOKER);
+	//ジョーカーを生成するメソッド
+	public static Card getJoker(int num) {
+		Card card = new Card(num, Mark.JOKER);
 		return card;
 	}
 
@@ -109,6 +99,8 @@ public class Card {
 		int allPower = 0;
 		List<Card> cl = new ArrayList(); //まず空のカードリストを作成
 		List<Card> pairCard = new ArrayList(); //ペアのカードを入れるリストを作成
+
+		Card maxCard = new Card(0, Mark.CLUB);
 
 		for (Card c : cardList) {
 			cl.add(c); //playerが持っているリストを拡張for文で回して空のリストに追加していく
