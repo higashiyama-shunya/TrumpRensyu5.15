@@ -394,6 +394,90 @@ class CardTest {
 		Card card = Card.getBlackJoker();
 		Card card2 = Card.getRedJoker();
 		Card card3 = new Card(13, Mark.DIAMOND);
+		Card card4 = new Card(13, Mark.SPADE);
+		Card card5 = new Card(10, Mark.CLUB);
+
+		cardList.add(card);
+		cardList.add(card2);
+		cardList.add(card3);
+		cardList.add(card4);
+		cardList.add(card5);
+
+		player.setList(cardList);
+
+		int power = card.isTwoPair(cardList);
+
+		System.out.println(power);
+
+		assertTrue(0 < power);
+	}
+
+	@Test
+	@DisplayName("ジョーカーが入ったツーペアのテスト ジョーカー入りのフルハウス")
+	void test5_4() {
+		System.out.println("──ジョーカーが入ったツーペアのテスト ジョーカー入りのフルハウス──");
+
+		List<Card> pairCard = new ArrayList();
+
+		Card card = Card.getBlackJoker();
+		Card card2 = new Card(13, Mark.CLUB);
+		Card card3 = new Card(13, Mark.DIAMOND);
+		Card card4 = new Card(12, Mark.SPADE);
+		Card card5 = new Card(12, Mark.CLUB);
+
+		cardList.add(card);
+		cardList.add(card2);
+		cardList.add(card3);
+		cardList.add(card4);
+		cardList.add(card5);
+
+		player.setList(cardList);
+
+		int power = card.isTwoPair(cardList);
+
+		System.out.println(power);
+
+		assertTrue(0 < power);
+	}
+
+	@Test
+	@DisplayName("ジョーカーが入ったツーペアのテスト ジョーカー入りの4カード")
+	void test5_5() {
+		System.out.println("──ジョーカーが入ったツーペアのテスト ジョーカー入りの4カード──");
+
+		List<Card> pairCard = new ArrayList();
+
+		Card card = Card.getBlackJoker();
+		Card card2 = new Card(13, Mark.CLUB);
+		Card card3 = new Card(13, Mark.DIAMOND);
+		Card card4 = new Card(13, Mark.SPADE);
+		Card card5 = new Card(12, Mark.CLUB);
+
+		cardList.add(card);
+		cardList.add(card2);
+		cardList.add(card3);
+		cardList.add(card4);
+		cardList.add(card5);
+
+		player.setList(cardList);
+
+		int power = card.isTwoPair(cardList);
+
+		System.out.println(power);
+
+		assertTrue(0 < power);
+	}
+
+	@Test
+	@DisplayName("ジョーカーが入ったツーペアのテスト ジョーカー2枚")
+	void test5_6() {
+		System.out.println("──ジョーカーが入ったツーペアのテスト ジョーカー2枚──");
+
+		List<Card> pairCard = new ArrayList();
+
+		Card card = Card.getBlackJoker();
+		Card card2 = Card.getRedJoker();
+		Card card3 = new Card(13, Mark.DIAMOND);
 		Card card4 = new Card(12, Mark.SPADE);
 		Card card5 = new Card(10, Mark.CLUB);
 

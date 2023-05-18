@@ -119,6 +119,7 @@ public class Card {
 				joker = c;
 			}
 		}
+
 		if (!isJoker) {
 			for (int i = 0; i < cl.size(); i++) { //for文でiを0から回す
 				Card card = cl.get(i); //i番にあるカードを生成
@@ -149,43 +150,81 @@ public class Card {
 	//ツーペア判定を行うメソッド
 	public static int isTwoPair(List<Card> cardList) {
 		int allPower = 0;
-		List<Card> cl = new ArrayList();
-		List<Card> pairCard = new ArrayList();
+		List<Card> cl = new ArrayList(); //リストを複製して入れるための空のリスト
+		List<Card> pairCard = new ArrayList(); //ペアを入れる空のリスト
+		List<Card> jokerList = new ArrayList(); //ジョーカーを入れる空のリスト
+
+		boolean isJoker = false;
+
+		//カードリストの複製とジョーカーが入っているか判定し、入っていたらジョーカーリストに入れる。
 		for (Card c : cardList) {
 			cl.add(c);
+			if (c.mark == Mark.JOKER) {
+				isJoker = true;
+				jokerList.add(c);
+			}
 		}
 
-		int count = 0;
-
-		loop: for (int i = 0; i < cl.size(); i++) {
-			Card card = cl.get(i);
-			for (int j = i + 1; j < cl.size(); j++) {
-				Card card2 = cl.get(j);
-				if (card.getNum() == card2.getNum()) {
-					cl.remove(i);
-					cl.remove(j - 1);
-					count++;
-					pairCard.add(card);
-					pairCard.add(card2);
-					break loop;
+		if (isJoker) {//ジョーカーが合った時の処理
+			for (int i = 0; i < cl.size(); i++) {
+				Card card = cl.get(i);
+				for (int j = i + 1; j < cl.size(); j++) {
+					Card card2 = cl.get(j);
+					if (card.mark != Mark.JOKER && card2.mark != Mark.JOKER) {
+						if (card.getNum() == card2.getNum()) {
+							cl.remove(i);
+							cl.remove(j - 1);
+							pairCard.add(card);
+							pairCard.add(card2);
+						}
+					}
+				}
+			}
+			for (int k = 0; k < jokerList.size(); k++) {
+				for (int l = 0; l < cl.size(); l++) {
+					Card card3 = cl.get(l);
+					Card maxCard = new Card(0, Mark.CLUB);
+					for (Card card : cl) {
+						if (0 < card.compareTo(maxCard) && card.mark != Mark.JOKER) {
+							maxCard = card;
+						}
+					}
+					if (0 == card3.compareTo(maxCard) && card3.mark != Mark.JOKER) {
+						cl.remove(l);
+						pairCard.add(maxCard);
+						pairCard.add(jokerList.get(k));
+					}
+				}
+			}
+		} else { //ジョーカーがない時の処理
+			loop: for (int i = 0; i < cl.size(); i++) {
+				Card card = cl.get(i);
+				for (int j = i + 1; j < cl.size(); j++) {
+					Card card2 = cl.get(j);
+					if (card.getNum() == card2.getNum()) {
+						cl.remove(i);
+						cl.remove(j - 1);
+						pairCard.add(card);
+						pairCard.add(card2);
+						break loop;
+					}
+				}
+			}
+			loop: for (int i = 0; i < cl.size(); i++) {
+				Card card = cl.get(i);
+				for (int j = i + 1; j < cl.size(); j++) {
+					Card card2 = cl.get(j);
+					if (card.getNum() == card2.getNum()) {
+						cl.remove(i);
+						cl.remove(j - 1);
+						pairCard.add(card);
+						pairCard.add(card2);
+						break loop;
+					}
 				}
 			}
 		}
 
-		loop: for (int i = 0; i < cl.size(); i++) {
-			Card card = cl.get(i);
-			for (int j = i + 1; j < cl.size(); j++) {
-				Card card2 = cl.get(j);
-				if (card.getNum() == card2.getNum()) {
-					cl.remove(i);
-					cl.remove(j - 1);
-					count++;
-					pairCard.add(card);
-					pairCard.add(card2);
-					break loop;
-				}
-			}
-		}
 		if (pairCard.size() == 4) {
 			for (Card c : pairCard) {
 				allPower = allPower + c.getPower();
