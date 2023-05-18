@@ -89,8 +89,13 @@ public class Card {
 	}
 
 	//ジョーカーを生成するメソッド
-	public static Card getJoker(int num) {
-		Card card = new Card(num, Mark.JOKER);
+	public static Card getRedJoker() {
+		Card card = new Card(16, Mark.JOKER);
+		return card;
+	}
+
+	public static Card getBlackJoker() {
+		Card card = new Card(15, Mark.JOKER);
 		return card;
 	}
 
@@ -99,26 +104,40 @@ public class Card {
 		int allPower = 0;
 		List<Card> cl = new ArrayList(); //まず空のカードリストを作成
 		List<Card> pairCard = new ArrayList(); //ペアのカードを入れるリストを作成
+		boolean isJoker = false;
 
 		Card maxCard = new Card(0, Mark.CLUB);
+		Card joker = new Card(0, Mark.CLUB);
 
 		for (Card c : cardList) {
 			cl.add(c); //playerが持っているリストを拡張for文で回して空のリストに追加していく
-		}
-
-		for (int i = 0; i < cl.size(); i++) { //for文でiを0から回す
-			Card card = cl.get(i); //i番にあるカードを生成
-			for (int j = i + 1; j < cl.size(); j++) { //forでjをi+1から回す　※iの次に来るカードはi+1で出てそれより前のカードはもう判定されている
-				Card card2 = cl.get(j); //j番にあるカードを取得
-				if (card.getNum() == card2.getNum()) { //if文でカードの数値が一致した場合
-					cl.remove(i); //合っていた2枚ののカードを削除
-					cl.remove(j - 1); //j-1のカードは上のremoveで消えて数値が1ずれるため-1している。
-					pairCard.add(card);
-					pairCard.add(card2);
-
-				}
+			if (0 < c.compareTo(maxCard) && c.mark != Mark.JOKER) {
+				maxCard = c;
+			}
+			if (c.mark == Mark.JOKER) {
+				isJoker = true;
+				joker = c;
 			}
 		}
+		if (!isJoker) {
+			for (int i = 0; i < cl.size(); i++) { //for文でiを0から回す
+				Card card = cl.get(i); //i番にあるカードを生成
+				for (int j = i + 1; j < cl.size(); j++) { //forでjをi+1から回す　※iの次に来るカードはi+1で出てそれより前のカードはもう判定されている
+					Card card2 = cl.get(j); //j番にあるカードを取得
+					if (card.getNum() == card2.getNum()) { //if文でカードの数値が一致した場合
+						cl.remove(i); //合っていた2枚ののカードを削除
+						cl.remove(j - 1); //j-1のカードは上のremoveで消えて数値が1ずれるため-1している。
+						pairCard.add(card);
+						pairCard.add(card2);
+
+					}
+				}
+			}
+		} else {
+			pairCard.add(maxCard);
+			pairCard.add(joker);
+		}
+
 		for (Card c : pairCard) {
 			int power = c.getPower();
 			allPower = allPower + power;

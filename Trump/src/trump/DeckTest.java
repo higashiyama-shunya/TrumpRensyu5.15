@@ -109,7 +109,7 @@ class DeckTest {
 		assertTrue(0 < card2.compareTo(card4));
 
 		//ジョーカーカードを作るメソッドのテスト  ※ジョーカーカードが一番強い設定
-		Card jorker = card.getJoker(15);
+		Card jorker = card.getBlackJoker();
 		assertTrue(0 < jorker.compareTo(card2));
 	}
 
@@ -127,7 +127,7 @@ class DeckTest {
 		Card card1 = new Card(11, Mark.DIAMOND);
 		Card card2 = new Card(12, Mark.HEART);
 		Card card3 = new Card(13, Mark.CLUB);
-		Card card4 = Card.getJoker(16);
+		Card card4 = Card.getRedJoker();
 
 		assertEquals("ジャック", card1.getNewNumber());
 		assertEquals("クイーン", card2.getNewNumber());
