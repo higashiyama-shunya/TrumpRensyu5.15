@@ -11,7 +11,8 @@ public class Card {
 	//enumメソッド
 	//
 	public enum Mark {
-		JOKER("ジョーカー", 5), SPADE("スペード", 4), HEART("ハート", 3), DIAMOND("ダイヤ", 2), CLUB("クラブ", 1);
+		REDJOKER("レッドジョーカー", 6), BRACKJOKER("ブラックジョーカー", 5), SPADE("スペード", 4), HEART("ハート", 3), DIAMOND("ダイヤ",
+				2), CLUB("クラブ", 1);
 
 		private final String name;
 		private final int priority;
@@ -48,7 +49,7 @@ public class Card {
 	public int getPower() {
 		int power = 0;
 
-		if (mark == Mark.JOKER) {
+		if (mark == Mark.REDJOKER || mark == Mark.BRACKJOKER) {
 			//ジョーカーを15
 			power = 15;
 		} else if (Number == 1) {
@@ -63,7 +64,7 @@ public class Card {
 		return power;
 	}
 
-	public int getPower2() {
+	public int getNum() {
 		return this.Number;
 	}
 
@@ -84,18 +85,23 @@ public class Card {
 
 	//マークと数字を同時に表示するメソッド
 	public String markAndNum() {
-		if (this.mark == Mark.JOKER) {
+		if (this.mark == Mark.REDJOKER || this.mark == Mark.BRACKJOKER) {
 			return this.mark.name;
 		} else {
 			return this.mark.name + "の" + this.getNewNumber();
 		}
 	}
 
-	//ジョーカーを生成するメソッド
-	public static Card getJoker() {
-		Card card = new Card(99, Mark.JOKER);
+	//レッドジョーカーを生成するメソッド
+	public static Card getRedJoker() {
+		Card card = new Card(99, Mark.REDJOKER);
 		return card;
+	}
 
+	//ブラックジョーカーを生成するメソッド
+	public static Card getBrackJoker() {
+		Card card = new Card(99, Mark.BRACKJOKER);
+		return card;
 	}
 
 	//ワンペア判定を行うメソッド
@@ -112,7 +118,7 @@ public class Card {
 			Card card = cl.get(i); //i番にあるカードを生成
 			for (int j = i + 1; j < cl.size(); j++) { //forでjをi+1から回す　※iの次に来るカードはi+1で出てそれより前のカードはもう判定されている
 				Card card2 = cl.get(j); //j番にあるカードを取得
-				if (card.getPower2() == card2.getPower2()) { //if文でカードの数値が一致した場合
+				if (card.getNum() == card2.getNum()) { //if文でカードの数値が一致した場合
 					cl.remove(i); //合っていた2枚ののカードを削除
 					cl.remove(j - 1); //j-1のカードは上のremoveで消えて数値が1ずれるため-1している。
 					pairCard.add(card);
@@ -144,7 +150,7 @@ public class Card {
 			Card card = cl.get(i);
 			for (int j = i + 1; j < cl.size(); j++) {
 				Card card2 = cl.get(j);
-				if (card.getPower2() == card2.getPower2()) {
+				if (card.getNum() == card2.getNum()) {
 					cl.remove(i);
 					cl.remove(j - 1);
 					count++;
@@ -159,7 +165,7 @@ public class Card {
 			Card card = cl.get(i);
 			for (int j = i + 1; j < cl.size(); j++) {
 				Card card2 = cl.get(j);
-				if (card.getPower2() == card2.getPower2()) {
+				if (card.getNum() == card2.getNum()) {
 					cl.remove(i);
 					cl.remove(j - 1);
 					count++;
@@ -190,10 +196,10 @@ public class Card {
 			Card card = cl.get(i);
 			for (int j = i + 1; j < cl.size(); j++) {
 				Card card2 = cl.get(j);
-				if (card.getPower2() == card2.getPower2()) {
+				if (card.getNum() == card2.getNum()) {
 					for (int k = j + 1; k < cl.size(); k++) {
 						Card card3 = cl.get(k);
-						if (card2.getPower2() == card3.getPower2()) {
+						if (card2.getNum() == card3.getNum()) {
 							trioCard.add(card);
 							trioCard.add(card2);
 							trioCard.add(card3);
@@ -208,5 +214,4 @@ public class Card {
 		}
 		return allPower;
 	}
-
 }

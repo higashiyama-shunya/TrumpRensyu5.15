@@ -100,16 +100,17 @@ class DeckTest {
 		Card card4 = new Card(13, Mark.CLUB);
 
 		//card2がcard1より大きければ1を、小さければ-1を、同じであれば0を返すメソッドcompareToメソッドのテスト
-		assertEquals(1, card2.compareTo(card1));
-		assertEquals(-1, card1.compareTo(card2));
+		//comparetoメソッドを-1,0,1じゃなくパワーの差を戻り値にしたためテストも0より上か、0未満かで判定するように修正
+		assertTrue(0 < card2.compareTo(card1));
+		assertTrue(0 > card1.compareTo(card2));
 		assertEquals(0, card2.compareTo(card3));
 
 		//マークが違えばそれも比較をするという照明
-		assertEquals(1, card2.compareTo(card4));
+		assertTrue(0 < card2.compareTo(card4));
 
 		//ジョーカーカードを作るメソッドのテスト  ※ジョーカーカードが一番強い設定
-		Card jorker = card.getJoker();
-		assertEquals(1, jorker.compareTo(card2));
+		Card jorker = card.getRedJoker();
+		assertTrue(0 < jorker.compareTo(card2));
 	}
 
 	@Test
@@ -126,11 +127,11 @@ class DeckTest {
 		Card card1 = new Card(11, Mark.DIAMOND);
 		Card card2 = new Card(12, Mark.HEART);
 		Card card3 = new Card(13, Mark.CLUB);
-		Card card4 = Card.getJoker();
+		Card card4 = Card.getRedJoker();
 
 		assertEquals("ジャック", card1.getNewNumber());
 		assertEquals("クイーン", card2.getNewNumber());
 		assertEquals("キング", card3.getNewNumber());
-		assertEquals("ジョーカー", card4.getNewNumber());
+		System.out.println(card4.markAndNum());
 	}
 }

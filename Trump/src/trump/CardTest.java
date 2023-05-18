@@ -31,11 +31,11 @@ class CardTest {
 		System.out.println("──Cardのstaticメソッドでのワンペア判定──");
 		List<Card> pairCard = new ArrayList();
 
-		Card card = new Card(7, Mark.DIAMOND);
-		Card card2 = new Card(11, Mark.HEART);
-		Card card3 = new Card(2, Mark.CLUB);
-		Card card4 = new Card(11, Mark.SPADE);
-		Card card5 = new Card(1, Mark.HEART);
+		Card card = new Card(13, Mark.DIAMOND);
+		Card card2 = new Card(10, Mark.HEART);
+		Card card3 = new Card(12, Mark.CLUB);
+		Card card4 = new Card(5, Mark.SPADE);
+		Card card5 = new Card(13, Mark.HEART);
 
 		cardList.add(card);
 		cardList.add(card2);
@@ -45,13 +45,13 @@ class CardTest {
 
 		player.setList(cardList);
 
-		pairCard = card.isOnePair(cardList);
+		int power = card.isOnePair(cardList);
 
 		for (Card c : pairCard) {
-			System.out.println(c.markAndNum());
+			c.markAndNum();
 		}
 
-		assertEquals(pairCard.get(0).getPower(), pairCard.get(1).getPower());
+		assertEquals(265, power);
 	}
 
 	@Test
@@ -74,13 +74,13 @@ class CardTest {
 
 		player.setList(cardList);
 
-		pairCard = card.isOnePair(cardList);
+		int power = card.isOnePair(cardList);
 
 		for (Card c : pairCard) {
 			c.markAndNum();
 		}
 
-		assertEquals(0, pairCard.size());
+		assertEquals(0, power);
 	}
 
 	@Test
@@ -103,15 +103,13 @@ class CardTest {
 
 		player.setList(cardList);
 
-		pairCard = card.isTwoPair(cardList);
+		int power = card.isTwoPair(cardList);
 
 		for (Card c : pairCard) {
 			c.markAndNum();
 		}
 
-		assertEquals(4, pairCard.size());
-		assertEquals(pairCard.get(0).getPower(), pairCard.get(1).getPower());
-		assertEquals(pairCard.get(2).getPower(), pairCard.get(3).getPower());
+		assertEquals(530, power);
 	}
 
 	@Test
@@ -134,12 +132,12 @@ class CardTest {
 
 		player.setList(cardList);
 
-		pairCard = card.isTwoPair(cardList);
+		int power = card.isTwoPair(cardList);
 
 		for (Card c : pairCard) {
 			c.markAndNum();
 		}
-		assertTrue(3 > pairCard.size());
+		assertEquals(0, power);
 	}
 
 	@Test
@@ -162,19 +160,15 @@ class CardTest {
 
 		player.setList(cardList);
 
-		pairCard = card.isTwoPair(cardList);
+		int power = card.isTwoPair(cardList);
 
-		for (Card c : pairCard) {
-			c.markAndNum();
-		}
-		assertTrue(3 > pairCard.size());
+		assertEquals(0, power);
 	}
 
 	@Test
 	@DisplayName("Cardのstaticメソッドでのスリーカード判定")
 	void test3_1() {
 		System.out.println("──Cardのstaticメソッドでのスリーカード判定──");
-		List<Card> trioCard = new ArrayList();
 
 		Card card = new Card(13, Mark.DIAMOND);
 		Card card2 = new Card(13, Mark.HEART);
@@ -190,15 +184,9 @@ class CardTest {
 
 		player.setList(cardList);
 
-		trioCard = card.isThreeCard(cardList);
+		int power = card.isThreeCard(cardList);
 
-		for (Card c : trioCard) {
-			c.markAndNum();
-		}
-
-		assertEquals(3, trioCard.size());
-		assertEquals(trioCard.get(0).getPower(), trioCard.get(1).getPower());
-		assertEquals(trioCard.get(1).getPower(), trioCard.get(2).getPower());
+		assertEquals(396, power);
 	}
 
 	@Test
@@ -222,12 +210,9 @@ class CardTest {
 
 		player.setList(cardList);
 
-		trioCard = card.isThreeCard(cardList);
+		int power = card.isThreeCard(cardList);
 
-		for (Card c : trioCard) {
-			c.markAndNum();
-		}
-		assertTrue(3 > trioCard.size());
+		assertEquals(0, power);
 	}
 
 	@Test
@@ -251,13 +236,9 @@ class CardTest {
 
 		player.setList(cardList);
 
-		trioCard = card.isThreeCard(cardList);
+		int power = card.isThreeCard(cardList);
 
-		for (Card c : trioCard) {
-			c.markAndNum();
-		}
-
-		assertTrue(3 > trioCard.size());
+		assertEquals(0, power);
 
 	}
 
@@ -282,15 +263,13 @@ class CardTest {
 
 		player.setList(cardList);
 
-		trioCard = card.isThreeCard(cardList);
+		int power = card.isThreeCard(cardList);
 
 		for (Card c : trioCard) {
 			c.markAndNum();
 		}
 
-		assertEquals(3, trioCard.size());
-		assertEquals(trioCard.get(0).getPower(), trioCard.get(1).getPower());
-		assertEquals(trioCard.get(1).getPower(), trioCard.get(2).getPower());
+		assertEquals(396, power);
 
 	}
 
@@ -315,15 +294,27 @@ class CardTest {
 
 		player.setList(cardList);
 
-		trioCard = card.isThreeCard(cardList);
+		int power = card.isThreeCard(cardList);
 
 		for (Card c : trioCard) {
 			c.markAndNum();
 		}
 
-		assertEquals(3, trioCard.size());
-		assertEquals(trioCard.get(0).getPower(), trioCard.get(1).getPower());
-		assertEquals(trioCard.get(1).getPower(), trioCard.get(2).getPower());
+		assertEquals(399, power);
 
 	}
+
+	@Test
+	@DisplayName("レッドジョーカーとブラックジョーカーの強さのテスト")
+	void test4_1() {
+		Card card = Card.getRedJoker();
+		Card card2 = Card.getBrackJoker();
+		System.out.println(card.markAndNum() + "のパワー:" + card.getPower());
+		System.out.println(card2.markAndNum() + "のパワー:" + card2.getPower());
+
+		int compare = card.compareTo(card2);
+
+		assertTrue(0 < compare);
+	}
+
 }
