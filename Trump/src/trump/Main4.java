@@ -11,7 +11,7 @@ public class Main4 {
 	public static void main(String[] args) {
 		//カードを好きな枚数引いてその中で一番数字が大きいカードを表示
 		Deck deck = new Deck();
-		maxCard(deck);
+		//maxCard(deck);
 
 		Card card = new Card(10, Mark.CLUB);
 		System.out.println(card.getPower());
@@ -55,27 +55,31 @@ public class Main4 {
 	public static void porker(Deck deck) {
 		Player player = new Player(); //手札を引く役としてプレイヤーをインスタンス化
 		int power = 0;
-		List<Card> hand = player.getList(); //手札を受け取る用のリスト
+		List<Card> handCard = player.getList(); //手札を受け取る用のリスト
+		List<Card> handCard2 = new ArrayList();
+		List<Card> handCard3 = new ArrayList();
 		List<Card> pairCard = null; //役があった時のカードを受け取るリスト
 
 		System.out.println("カードを5枚引きます");
 
 		for (int i = 0; i < 5; i++) {
 			Card card = deck.draw();
-			hand.add(card);
+			handCard.add(card);
+			handCard2.add(card);
+			handCard3.add(card);
 		}
 
 		String role = null; //役の名前を受け取る変数
-		power = Card.isThreeCard(hand);
+		power = Card.isThreeCard(handCard2);
 		if (power != 0) {
 			role = "スリーカード";
 		} else {
-			power = Card.isTwoPair(hand);
-			if (power != 0) {
+			Hand hand1 = Card.isTwoPair(handCard2);
+			if (hand1.getPower() > 0) {
 				role = "ツーペア";
 			} else {
-				power = Card.isOnePair(hand);
-				if (power != 0) {
+				Hand hand2 = Card.isOnePair(handCard2);
+				if (hand2.getPower() > 0) {
 					role = "ワンペア";
 				}
 			}
@@ -99,7 +103,7 @@ public class Main4 {
 		 */
 
 		System.out.println("引いたカードは");
-		for (Card c : hand) {
+		for (Card c : handCard) {
 			System.out.print(c.markAndNum() + ",");
 		}
 		System.out.println("です。");

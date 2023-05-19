@@ -45,13 +45,13 @@ class CardTest {
 
 		player.setList(cardList);
 
-		int power = card.isOnePair(cardList);
+		Hand hand = card.isOnePair(cardList);
 
 		for (Card c : pairCard) {
 			c.markAndNum();
 		}
 
-		assertEquals(265, power);
+		assertEquals(265, hand.getPower());
 	}
 
 	@Test
@@ -74,13 +74,13 @@ class CardTest {
 
 		player.setList(cardList);
 
-		int power = card.isOnePair(cardList);
+		Hand hand = card.isOnePair(cardList);
 
 		for (Card c : pairCard) {
 			c.markAndNum();
 		}
 
-		assertEquals(0, power);
+		assertEquals(0, hand.getPower());
 	}
 
 	@Test
@@ -103,13 +103,13 @@ class CardTest {
 
 		player.setList(cardList);
 
-		int power = card.isTwoPair(cardList);
+		Hand hand = card.isTwoPair(cardList);
 
 		for (Card c : pairCard) {
 			c.markAndNum();
 		}
 
-		assertEquals(530, power);
+		assertEquals(530, hand.getPower());
 	}
 
 	@Test
@@ -132,12 +132,12 @@ class CardTest {
 
 		player.setList(cardList);
 
-		int power = card.isTwoPair(cardList);
+		Hand hand = card.isTwoPair(cardList);
 
 		for (Card c : pairCard) {
 			c.markAndNum();
 		}
-		assertEquals(0, power);
+		assertEquals(0, hand.getPower());
 	}
 
 	@Test
@@ -160,9 +160,9 @@ class CardTest {
 
 		player.setList(cardList);
 
-		int power = card.isTwoPair(cardList);
+		Hand hand = card.isTwoPair(cardList);
 
-		assertEquals(0, power);
+		assertEquals(0, hand.getPower());
 	}
 
 	@Test
@@ -349,11 +349,11 @@ class CardTest {
 
 		player.setList(cardList);
 
-		int power = card.isOnePair(cardList);
+		Hand hand = card.isOnePair(cardList);
 
-		System.out.println(power);
+		System.out.println(hand.getPower());
 
-		assertTrue(0 < power);
+		assertTrue(0 < hand.getPower());
 	}
 
 	@Test
@@ -377,11 +377,11 @@ class CardTest {
 
 		player.setList(cardList);
 
-		int power = card.isTwoPair(cardList);
+		Hand hand = card.isTwoPair(cardList);
 
-		System.out.println(power);
+		System.out.println(hand.getPower());
 
-		assertTrue(0 < power);
+		assertTrue(0 < hand.getPower());
 	}
 
 	@Test
@@ -405,11 +405,11 @@ class CardTest {
 
 		player.setList(cardList);
 
-		int power = card.isTwoPair(cardList);
+		Hand hand = card.isTwoPair(cardList);
 
-		System.out.println(power);
+		System.out.println(hand.getPower());
 
-		assertTrue(0 < power);
+		assertTrue(0 < hand.getPower());
 	}
 
 	@Test
@@ -433,11 +433,11 @@ class CardTest {
 
 		player.setList(cardList);
 
-		int power = card.isTwoPair(cardList);
+		Hand hand = card.isTwoPair(cardList);
 
-		System.out.println(power);
+		System.out.println(hand.getPower());
 
-		assertTrue(0 < power);
+		assertTrue(0 < hand.getPower());
 	}
 
 	@Test
@@ -461,11 +461,11 @@ class CardTest {
 
 		player.setList(cardList);
 
-		int power = card.isTwoPair(cardList);
+		Hand hand = card.isTwoPair(cardList);
 
-		System.out.println(power);
+		System.out.println(hand.getPower());
 
-		assertTrue(0 < power);
+		assertTrue(0 < hand.getPower());
 	}
 
 	@Test
@@ -489,11 +489,11 @@ class CardTest {
 
 		player.setList(cardList);
 
-		int power = card.isTwoPair(cardList);
+		Hand hand = card.isTwoPair(cardList);
 
-		System.out.println(power);
+		System.out.println(hand.getPower());
 
-		assertTrue(0 < power);
+		assertTrue(0 < hand.getPower());
 	}
 
 	@Test
@@ -505,12 +505,18 @@ class CardTest {
 		Card card3 = new Card(10, Mark.DIAMOND);
 		Card card4 = new Card(12, Mark.SPADE);
 		Card card5 = new Card(10, Mark.CLUB);
+		Card card6 = new Card(11, Mark.DIAMOND);
+		Card card7 = new Card(1, Mark.SPADE);
+		Card card8 = new Card(2, Mark.CLUB);
 
 		cardList.add(card);
 		cardList.add(card2);
 		cardList.add(card3);
 		cardList.add(card4);
 		cardList.add(card5);
+		cardList.add(card6);
+		cardList.add(card7);
+		cardList.add(card8);
 		for (Card c : cardList) {
 			System.out.println(c.markAndNum());
 		}

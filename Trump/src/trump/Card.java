@@ -123,8 +123,9 @@ public class Card {
 		return card;
 	}
 
-	//ワンペア判定を行うメソッド
-	public static int isOnePair(List<Card> cardList) {
+	//ワンペア判定を行うメソッド 修正　戻り値をHandのクラス型で返す。
+	public static Hand isOnePair(List<Card> cardList) {
+		Hand hand;
 		int allPower = 0;
 		List<Card> cl = new ArrayList(); //まず空のカードリストを作成
 		List<Card> pairCard = new ArrayList(); //ペアのカードを入れるリストを作成
@@ -159,21 +160,23 @@ public class Card {
 			pairCard.add(maxCard);
 			pairCard.add(joker);
 		}
-
 		for (Card c : pairCard) {
 			int power = c.getPower();
 			allPower = allPower + power;
 		}
 
-		return allPower;
+		return hand = new Hand(allPower, cl);
 	}
 
 	//ツーペア判定を行うメソッド 修正版
-	public static int isTwoPair(List<Card> cardList) {
+	public static Hand isTwoPair(List<Card> cardList) {
 		int allPower = 0;
 		List<Card> cl = new ArrayList(); //リストを複製して入れるための空のリスト
 		List<Card> pairCard = new ArrayList(); //ペアを入れる空のリスト
 		List<Card> jokerList = new ArrayList(); //ジョーカーを入れる空のリスト
+		int power = 0;
+		int power2 = 0;
+		Hand hand;
 
 		boolean isJoker = false;
 
@@ -181,103 +184,35 @@ public class Card {
 		for (Card c : cardList) {
 			cl.add(c);
 			if (c.mark == Mark.JOKER) {
-				isJoker = true;
 				jokerList.add(c);
 			}
 		}
+		Card.sortList(cl);
 
-		if (pairCard.size() == 4) {
-			for (Card c : pairCard) {
-				allPower = allPower + c.getPower();
+		if (jokerList.size() == 1) {
+			Hand hand1 = Card.isOnePair(cl);
+			if (hand1.getPower() > 0) {
+				allPower = hand1.getPower() + cl.get(0).getPower() + jokerList.get(0).getPower();
 			}
-		}
-		return allPower;
-	}
-
-	//ツーペア判定を行うメソッド
-	public static int isTwoPair2(List<Card> cardList) {
-		int allPower = 0;
-		List<Card> cl = new ArrayList(); //リストを複製して入れるための空のリスト
-		List<Card> pairCard = new ArrayList(); //ペアを入れる空のリスト
-		List<Card> jokerList = new ArrayList(); //ジョーカーを入れる空のリスト
-
-		boolean isJoker = false;
-
-		//カードリストの複製とジョーカーが入っているか判定し、入っていたらジョーカーリストに入れる。
-		for (Card c : cardList) {
-			cl.add(c);
-			if (c.mark == Mark.JOKER) {
-				isJoker = true;
-				jokerList.add(c);
-			}
-		}
-
-		if (isJoker) {//ジョーカーが合った時の処理
-			for (int i = 0; i < cl.size(); i++) {
-				Card card = cl.get(i);
-				for (int j = i + 1; j < cl.size(); j++) {
-					Card card2 = cl.get(j);
-					if (card.mark != Mark.JOKER && card2.mark != Mark.JOKER) {
-						if (card.getNum() == card2.getNum()) {
-							cl.remove(i);
-							cl.remove(j - 1);
-							pairCard.add(card);
-							pairCard.add(card2);
-						}
-					}
+		} else if (jokerList.size() == 2) {
+			Hand hand1 = Card.isOnePair(cl);
+			if (hand1.getPower() > 0) {
+				allPower = hand1.getPower() + cl.get(0).getPower() + jokerList.get(0).getPower();
+			} else {
+				for (int i = 0; i < jokerList.size(); i++) {
+					allPower += cl.get(i).getPower() + jokerList.get(i).getPower();
 				}
 			}
-			for (int k = 0; k < jokerList.size(); k++) {
-				for (int l = 0; l < cl.size(); l++) {
-					Card card3 = cl.get(l);
-					Card maxCard = new Card(0, Mark.CLUB);
-					for (Card card : cl) {
-						if (0 < card.compareTo(maxCard) && card.mark != Mark.JOKER) {
-							maxCard = card;
-						}
-					}
-					if (0 == card3.compareTo(maxCard) && card3.mark != Mark.JOKER) {
-						cl.remove(l);
-						pairCard.add(maxCard);
-						pairCard.add(jokerList.get(k));
-					}
-				}
-			}
-		} else { //ジョーカーがない時の処理
-			loop: for (int i = 0; i < cl.size(); i++) {
-				Card card = cl.get(i);
-				for (int j = i + 1; j < cl.size(); j++) {
-					Card card2 = cl.get(j);
-					if (card.getNum() == card2.getNum()) {
-						cl.remove(i);
-						cl.remove(j - 1);
-						pairCard.add(card);
-						pairCard.add(card2);
-						break loop;
-					}
-				}
-			}
-			loop: for (int i = 0; i < cl.size(); i++) {
-				Card card = cl.get(i);
-				for (int j = i + 1; j < cl.size(); j++) {
-					Card card2 = cl.get(j);
-					if (card.getNum() == card2.getNum()) {
-						cl.remove(i);
-						cl.remove(j - 1);
-						pairCard.add(card);
-						pairCard.add(card2);
-						break loop;
-					}
+		} else if (jokerList.size() == 0) {
+			Hand hand1 = Card.isOnePair(cl);
+			if (hand1.getPower() > 0) {
+				Hand hand2 = Card.isOnePair(hand1.getCardList());
+				if (hand2.getPower() > 0) {
+					allPower = hand1.getPower() + hand2.getPower();
 				}
 			}
 		}
-
-		if (pairCard.size() == 4) {
-			for (Card c : pairCard) {
-				allPower = allPower + c.getPower();
-			}
-		}
-		return allPower;
+		return hand = new Hand(allPower, cl);
 	}
 
 	//スリーカードを判定するメソッド作成
