@@ -495,4 +495,30 @@ class CardTest {
 
 		assertTrue(0 < power);
 	}
+
+	@Test
+	@DisplayName("ソート機能 確認用")
+	void test6_1() {
+		System.out.println("──ソート機能 確認用──");
+		Card card = new Card(8, Mark.CLUB);
+		Card card2 = new Card(4, Mark.HEART);
+		Card card3 = new Card(10, Mark.DIAMOND);
+		Card card4 = new Card(12, Mark.SPADE);
+		Card card5 = new Card(10, Mark.CLUB);
+
+		cardList.add(card);
+		cardList.add(card2);
+		cardList.add(card3);
+		cardList.add(card4);
+		cardList.add(card5);
+		for (Card c : cardList) {
+			System.out.println(c.markAndNum());
+		}
+		List<Card> sortList = Card.sortList(cardList);
+		System.out.println("");
+		for (Card c : sortList) {
+			System.out.println(c.markAndNum());
+		}
+
+	}
 }

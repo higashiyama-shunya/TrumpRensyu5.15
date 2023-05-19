@@ -44,6 +44,18 @@ public class Card {
 		return this.getPower() - anotherCard.getPower();
 	}
 
+	//リストを昇順にソートするメソッド
+	public static List<Card> sortList(List<Card> cardList) {
+		int num = cardList.size();
+		List<Card> sortList = new ArrayList();
+		for (int i = 0; i < num; i++) {
+			Card maxCard = Card.getMaxCard(cardList);
+			sortList.add(maxCard);
+			cardList.remove(maxCard);
+		}
+		return sortList;
+	}
+
 	//マークや数字の値から出されるパワーを返すメソッド
 	public int getPower() {
 		int power = 0;
@@ -89,9 +101,15 @@ public class Card {
 	}
 
 	//渡されたカードのリストから最大値をとるメソッド 途中
-	public static Card getMaxCard() {
-		Card card = new Card(0, Mark.CLUB);
-		return card;
+	public static Card getMaxCard(List<Card> hands) {
+		Card maxCard = new Card(0, Mark.CLUB);
+		for (Card card : hands) {
+			int compare = card.compareTo(maxCard);
+			if (0 < compare) {
+				maxCard = card;
+			}
+		}
+		return maxCard;
 	}
 
 	//ジョーカーを生成するメソッド
@@ -112,14 +130,11 @@ public class Card {
 		List<Card> pairCard = new ArrayList(); //ペアのカードを入れるリストを作成
 		boolean isJoker = false;
 
-		Card maxCard = new Card(0, Mark.CLUB);
+		Card maxCard = Card.getMaxCard(pairCard);
 		Card joker = new Card(0, Mark.CLUB);
 
 		for (Card c : cardList) {
 			cl.add(c); //playerが持っているリストを拡張for文で回して空のリストに追加していく
-			if (0 < c.compareTo(maxCard) && c.mark != Mark.JOKER) {
-				maxCard = c;
-			}
 			if (c.mark == Mark.JOKER) {
 				isJoker = true;
 				joker = c;
@@ -153,8 +168,34 @@ public class Card {
 		return allPower;
 	}
 
-	//ツーペア判定を行うメソッド
+	//ツーペア判定を行うメソッド 修正版
 	public static int isTwoPair(List<Card> cardList) {
+		int allPower = 0;
+		List<Card> cl = new ArrayList(); //リストを複製して入れるための空のリスト
+		List<Card> pairCard = new ArrayList(); //ペアを入れる空のリスト
+		List<Card> jokerList = new ArrayList(); //ジョーカーを入れる空のリスト
+
+		boolean isJoker = false;
+
+		//カードリストの複製とジョーカーが入っているか判定し、入っていたらジョーカーリストに入れる。
+		for (Card c : cardList) {
+			cl.add(c);
+			if (c.mark == Mark.JOKER) {
+				isJoker = true;
+				jokerList.add(c);
+			}
+		}
+
+		if (pairCard.size() == 4) {
+			for (Card c : pairCard) {
+				allPower = allPower + c.getPower();
+			}
+		}
+		return allPower;
+	}
+
+	//ツーペア判定を行うメソッド
+	public static int isTwoPair2(List<Card> cardList) {
 		int allPower = 0;
 		List<Card> cl = new ArrayList(); //リストを複製して入れるための空のリスト
 		List<Card> pairCard = new ArrayList(); //ペアを入れる空のリスト
