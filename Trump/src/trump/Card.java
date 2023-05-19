@@ -88,6 +88,12 @@ public class Card {
 		}
 	}
 
+	//渡されたカードのリストから最大値をとるメソッド 途中
+	public static Card getMaxCard() {
+		Card card = new Card(0, Mark.CLUB);
+		return card;
+	}
+
 	//ジョーカーを生成するメソッド
 	public static Card getRedJoker() {
 		Card card = new Card(16, Mark.JOKER);
